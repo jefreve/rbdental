@@ -417,13 +417,10 @@ function App() {
 
               {/* BOTTOM SPACER + LOGO - Reduced padding to pull logo further down */}
               <div className="flex-1 w-full flex flex-col justify-end pb-4">
-                <div className="flex flex-col items-center gap-2 opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500 shrink-0">
-                  <div className="w-12 h-12 rounded-xl bg-muted-foreground/15 border-2 border-dashed border-muted-foreground/40 flex items-center justify-center">
-                    <span className="text-[10px] font-bold text-muted-foreground/60 italic">LOGO</span>
+                <div className="flex flex-col items-center transition-all duration-500 shrink-0">
+                  <div className="w-28 h-28 flex items-center justify-center">
+                    <img src="/logo-rbdental.png" alt="R.B. Dental Logo" className="w-full h-full object-contain" />
                   </div>
-                  <span className="text-[14px] sm:text-[12px] uppercase tracking-widest font-black text-muted-foreground/60 mt-1">
-                    Studio Medico
-                  </span>
                 </div>
               </div>
             </div>
