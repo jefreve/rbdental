@@ -1,17 +1,25 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 
+interface Doctor {
+  id: string;
+  name: string;
+  role: string;
+  avatar: string;
+}
+
 interface DoctorSelectorProps {
   onSelect: (doctorId: string, doctorName: string) => void;
   direction?: 'forward' | 'backward';
+  doctors: Doctor[];
 }
 
-export const DOCTORS = [
-  { id: 'rossi', name: 'Dr. Mario Rossi', role: 'Odontoiatra Specialista', avatar: 'MR' },
-  { id: 'bianchi', name: 'Dr.ssa Anna Bianchi', role: 'Igienista Dentale', avatar: 'AB' }
+export const DOCTORS: Doctor[] = [
+  { id: 'bosco', name: 'Dr. Roberto Bosco', role: 'Odontoiatra', avatar: 'RB' },
+  { id: 'minio', name: 'Dr.ssa Angela Minio', role: 'Medicina Estetica', avatar: 'AM' }
 ];
 
-export function DoctorSelector({ onSelect, direction = 'forward' }: DoctorSelectorProps) {
+export function DoctorSelector({ onSelect, direction = 'forward', doctors }: DoctorSelectorProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -44,7 +52,7 @@ export function DoctorSelector({ onSelect, direction = 'forward' }: DoctorSelect
             </div>
           ))
         ) : (
-          DOCTORS.map((doc) => (
+          doctors.map((doc) => (
             <button
               key={doc.id}
               onClick={() => onSelect(doc.id, doc.name)}

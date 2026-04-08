@@ -7,10 +7,14 @@ interface TreatmentSelectorProps {
 }
 
 const TREATMENTS = [
-  { id: 'igiene', name: 'Igiene Dentale', description: 'Pulizia professionale per mantenere il tuo sorriso sano.', duration: '45 min' },
-  { id: 'controllo', name: 'Visita di Controllo', description: 'Check-up completo della tua salute orale.', duration: '30 min' },
-  { id: 'urgenza', name: 'Urgenza', description: 'Dolore o problema che richiede attenzione immediata.', duration: '30 min' },
-  { id: 'sbiancamento', name: 'Sbiancamento', description: 'Trattamento estetico per denti più bianchi.', duration: '60 min' }
+  { id: 'chirurgia', name: 'CHIRURGIA ORALE', description: 'Interventi chirurgici specialistici del cavo orale.', duration: '60 min' },
+  { id: 'endodonzia', name: 'ENDODONZIA', description: 'Cura dei canali radicolari e dei tessuti interni del dente.', duration: '45 min' },
+  { id: 'igiene', name: 'IGIENE E PROFILASSI', description: 'Pulizia professionale e prevenzione delle patologie orali.', duration: '45 min' },
+  { id: 'implantologia', name: 'IMPLANTOLOGIA', description: 'Sostituzione di denti mancanti con impianti osteointegrati.', duration: '60 min' },
+  { id: 'estetica_dentale', name: 'ESTETICA DENTALE', description: 'Trattamenti per migliorare l\'aspetto estetico del sorriso.', duration: '45 min' },
+  { id: 'ortodonzia', name: 'ORTODONZIA', description: 'Correzione della posizione dei denti e delle mascelle.', duration: '30 min' },
+  { id: 'protesi', name: 'PROTESI', description: 'Soluzioni fisse o mobili per ripristinare la funzionalità masticatoria.', duration: '60 min' },
+  { id: 'medicina_estetica', name: 'MEDICINA ESTETICA', description: 'Trattamenti estetici non invasivi per il viso.', duration: '45 min' }
 ];
 
 export function TreatmentSelector({ onSelect, direction = 'forward' }: TreatmentSelectorProps) {

@@ -143,14 +143,8 @@ function App() {
     switch(step) {
       case 'treatment': setStep('home'); break;
       case 'datetime': setStep('treatment'); break;
+      case 'contact': setStep('doctor'); break;
       case 'doctor': setStep('datetime'); break;
-      case 'contact': 
-        if (DOCTORS.length === 1) {
-          setStep('datetime');
-        } else {
-          setStep('doctor');
-        }
-        break;
       default: break;
     }
   };
@@ -160,12 +154,7 @@ function App() {
     // Start 5-minute slot lock timer
     setSlotExpiresAt(Date.now() + SLOT_LOCK_DURATION_MS);
     setSlotExpired(false);
-    if (DOCTORS.length === 1) {
-      setBooking(prev => ({ ...prev, doctorName: DOCTORS[0].name }));
-      setStep('contact');
-    } else {
-      setStep('doctor');
-    }
+    setStep('doctor');
   };
 
   const handleSlotExpire = useCallback(() => {
@@ -444,14 +433,23 @@ function App() {
             <TreatmentSelector 
               direction={direction}
               onSelect={(id) => {
-                const nameMap: Record<string, { name: string, duration: string }> = {
-                  igiene: { name: 'Igiene Dentale', duration: '45 min' },
-                  controllo: { name: 'Visita di Controllo', duration: '30 min' },
-                  urgenza: { name: 'Urgenza', duration: '30 min' },
-                  sbiancamento: { name: 'Sbiancamento', duration: '60 min' }
+                const nameMap: Record<string, { name: string, duration: string, doctorName: string }> = {
+                  chirurgia: { name: 'CHIRURGIA ORALE', duration: '60 min', doctorName: 'Dr. Roberto Bosco' },
+                  endodonzia: { name: 'ENDODONZIA', duration: '45 min', doctorName: 'Dr. Roberto Bosco' },
+                  igiene: { name: 'IGIENE E PROFILASSI', duration: '45 min', doctorName: 'Dr. Roberto Bosco' },
+                  implantologia: { name: 'IMPLANTOLOGIA', duration: '60 min', doctorName: 'Dr. Roberto Bosco' },
+                  estetica_dentale: { name: 'ESTETICA DENTALE', duration: '45 min', doctorName: 'Dr. Roberto Bosco' },
+                  ortodonzia: { name: 'ORTODONZIA', duration: '30 min', doctorName: 'Dr. Roberto Bosco' },
+                  protesi: { name: 'PROTESI', duration: '60 min', doctorName: 'Dr. Roberto Bosco' },
+                  medicina_estetica: { name: 'MEDICINA ESTETICA', duration: '45 min', doctorName: 'Dr.ssa Angela Minio' }
                 };
-                const selected = nameMap[id] || { name: id, duration: '30 min' };
-                setBooking(prev => ({ ...prev, treatmentName: selected.name, serviceDuration: selected.duration }));
+                const selected = nameMap[id] || { name: id, duration: '30 min', doctorName: 'Dr. Roberto Bosco' };
+                setBooking(prev => ({ 
+                  ...prev, 
+                  treatmentName: selected.name, 
+                  serviceDuration: selected.duration,
+                  doctorName: selected.doctorName 
+                }));
                 setStep('datetime');
               }} 
             />
@@ -468,6 +466,11 @@ function App() {
           {activeView === 'doctor' && (
             <DoctorSelector
               direction={direction}
+              doctors={DOCTORS.filter(d => 
+                booking.treatmentName === 'MEDICINA ESTETICA' 
+                  ? d.id === 'minio' 
+                  : d.id === 'bosco'
+              )}
               onSelect={(_, name) => {
                 setBooking(prev => ({ ...prev, doctorName: name }));
                 setStep('contact');
