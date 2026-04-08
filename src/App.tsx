@@ -80,7 +80,6 @@ function App() {
   const [slotExpired, setSlotExpired] = useState(false);
   const [showExpiredBanner, setShowExpiredBanner] = useState(false);
   const [slotTakenByOther, setSlotTakenByOther] = useState(false);
-  const [pollCount, setPollCount] = useState(0);
 
   // Persistence effects
   useEffect(() => {
@@ -99,8 +98,8 @@ function App() {
     const handleFocusOut = () => {
       // Small delay to prevent layout flicker when moving between fields
       setTimeout(() => {
-        if (document.activeElement?.tagName !== 'INPUT' && 
-            document.activeElement?.tagName !== 'TEXTAREA' && 
+        if (document.activeElement?.tagName !== 'INPUT' &&
+            document.activeElement?.tagName !== 'TEXTAREA' &&
             document.activeElement?.tagName !== 'SELECT') {
           setIsKeyboardActive(false);
         }
@@ -138,7 +137,7 @@ function App() {
     }
     setStepBase(newStep);
   };
-  
+
   const handleBack = () => {
     switch(step) {
       case 'treatment': setStep('home'); break;
@@ -159,7 +158,6 @@ function App() {
 
   const handleSlotExpire = useCallback(() => {
     setSlotExpired(true);
-    setPollCount(0); // reset counter ready for polling
     // Wait 1 second before showing the banner and hiding the timer badge
     setTimeout(() => {
       setShowExpiredBanner(true);
@@ -170,37 +168,33 @@ function App() {
   useEffect(() => {
     if (!slotExpired || slotTakenByOther) return;
     const interval = setInterval(() => {
-      setPollCount(prev => {
-        const next = prev + 1;
-        if (AUTO_TAKE_ON_POLL > 0 && next >= AUTO_TAKE_ON_POLL) {
-          setSlotTakenByOther(true);
-          clearInterval(interval);
-        }
-        return next;
-      });
+      if (AUTO_TAKE_ON_POLL > 0) {
+        setSlotTakenByOther(true);
+        clearInterval(interval);
+      }
     }, POLLING_INTERVAL_S * 1000);
     return () => clearInterval(interval);
   }, [slotExpired, slotTakenByOther]);
 
   const handleStepEdit = (targetStep: 'treatment' | 'datetime' | 'doctor' | 'contact') => {
     setStep(targetStep);
-    
+
     // Cascading resets: clear only what comes AFTER the target step
     if (targetStep === 'treatment') {
-      setBooking(prev => ({ 
-        treatmentName: prev.treatmentName, 
-        serviceDuration: prev.serviceDuration 
+      setBooking(prev => ({
+        treatmentName: prev.treatmentName,
+        serviceDuration: prev.serviceDuration
       }));
     } else if (targetStep === 'datetime') {
-      setBooking(prev => ({ 
-        treatmentName: prev.treatmentName, 
+      setBooking(prev => ({
+        treatmentName: prev.treatmentName,
         serviceDuration: prev.serviceDuration,
         dateTime: prev.dateTime
       }));
     } else if (targetStep === 'doctor') {
-      setBooking(prev => ({ 
-        ...prev, 
-        doctorName: prev.doctorName 
+      setBooking(prev => ({
+        ...prev,
+        doctorName: prev.doctorName
       }));
     }
   };
@@ -219,10 +213,9 @@ function App() {
       setSlotExpired(false);
       setShowExpiredBanner(false);
       setSlotTakenByOther(false);
-      setPollCount(0);
-      setBooking(prev => ({ 
-        treatmentName: prev.treatmentName, 
-        serviceDuration: prev.serviceDuration 
+      setBooking(prev => ({
+        treatmentName: prev.treatmentName,
+        serviceDuration: prev.serviceDuration
       }));
       setStep('datetime');
       return;
@@ -234,7 +227,6 @@ function App() {
     setSlotExpired(false);
     setShowExpiredBanner(false);
     setSlotTakenByOther(false);
-    setPollCount(0);
     setBooking({});
     setPatientData({});
     setStep(targetStep);
@@ -272,9 +264,9 @@ function App() {
         )}>
           {activeView !== 'home' && (
             <div className="absolute left-2 h-full flex items-center">
-              <Button 
-                variant="ghost" 
-                size="icon" 
+              <Button
+                variant="ghost"
+                size="icon"
                 onClick={handleBack}
                 aria-label="Torna indietro"
                 className="rounded-full h-8 w-8 bg-white/15 backdrop-blur-[4px] hover:bg-white/25 text-white shrink-0 transition-all active:scale-95 p-0 flex items-center justify-center border-none"
@@ -328,9 +320,9 @@ function App() {
           <span>Attenzione: il tempo è scaduto. Lo slot potrebbe non essere più disponibile.</span>
         </div>
       )}
-      
+
       {/* Main Content Area - Scrollable Body */}
-      <main 
+      <main
         className={cn(
           "flex-1 w-full overflow-x-hidden px-6 sm:px-10 h-0 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
           isKeyboardActive ? "pb-2" : (activeView === 'success' ? "pb-6 sm:pb-0" : "pb-6"),
@@ -338,8 +330,8 @@ function App() {
         )}>
         <div className={cn(
           "flex flex-col items-center min-h-full text-center transition-all duration-300",
-          activeView === 'success' 
-            ? "justify-start pt-16 sm:justify-center sm:pt-0 sm:pb-0" 
+          activeView === 'success'
+            ? "justify-start pt-16 sm:justify-center sm:pt-0 sm:pb-0"
             : (isKeyboardActive ? "pb-4" : "pb-10 justify-center")
         )}>
           {activeView === 'home' && (
@@ -353,8 +345,8 @@ function App() {
               {/* Prenota Button - Balanced for perfect horizontal center */}
               <div className="flex items-center justify-center gap-2 w-full max-w-[400px]">
                 <div className="h-10 w-10 shrink-0 hidden sm:block opacity-0" aria-hidden="true" />
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   onClick={() => {
                     if (step === 'home' || step === 'success') {
                       setBooking({});
@@ -374,7 +366,7 @@ function App() {
               <div className="flex flex-col items-center gap-1 w-full relative">
                 {/* Main Dashboard Button */}
                 <div className="flex items-center justify-center w-full max-w-[400px]">
-                  <Button 
+                  <Button
                     variant="outline"
                     size="lg"
                     asChild
@@ -400,13 +392,13 @@ function App() {
                   >
                     <Info className="w-4 h-4" />
                   </Button>
-                  
+
                   {/* Tooltip content positioned relatively to the info icon */}
                   <div className="relative w-full flex justify-center h-0 overflow-visible pt-1">
                     <p className={cn(
                       "absolute top-0 w-[260px] text-[15px] sm:text-[13px] text-muted-foreground leading-relaxed italic transition-all duration-300 transform bg-background/95 backdrop-blur-sm p-3 rounded-xl border border-border/50 shadow-2xl z-20 pointer-events-none",
-                      showDashboardNote 
-                        ? "opacity-100 translate-y-0 visible" 
+                      showDashboardNote
+                        ? "opacity-100 translate-y-0 visible"
                         : "opacity-0 -translate-y-1 invisible sm:group-hover/info:opacity-100 sm:group-hover/info:translate-y-0 sm:group-hover/info:visible"
                     )}>
                       "In questa sezione puoi gestire solo le visite prenotate online qui sul sito. Per appuntamenti richiesti telefonicamente o tramite email, contatta lo studio."
@@ -418,7 +410,7 @@ function App() {
               {/* BOTTOM SPACER + LOGO - Reduced padding to pull logo further down */}
               <div className="flex-1 w-full flex flex-col justify-end pb-4">
                 <div className="flex flex-col items-center transition-all duration-500 shrink-0">
-                  <div className="w-28 h-28 flex items-center justify-center">
+                  <div className="w-36 h-36 flex items-center justify-center">
                     <img src="/logo-rbdental.png" alt="R.B. Dental Logo" className="w-full h-full object-contain" />
                   </div>
                 </div>
@@ -427,7 +419,7 @@ function App() {
           )}
 
           {activeView === 'treatment' && (
-            <TreatmentSelector 
+            <TreatmentSelector
               direction={direction}
               onSelect={(id) => {
                 const nameMap: Record<string, { name: string, duration: string, doctorName: string }> = {
@@ -441,19 +433,19 @@ function App() {
                   medicina_estetica: { name: 'MEDICINA ESTETICA', duration: '45 min', doctorName: 'Dr.ssa Angela Minio' }
                 };
                 const selected = nameMap[id] || { name: id, duration: '30 min', doctorName: 'Dr. Roberto Bosco' };
-                setBooking(prev => ({ 
-                  ...prev, 
-                  treatmentName: selected.name, 
+                setBooking(prev => ({
+                  ...prev,
+                  treatmentName: selected.name,
                   serviceDuration: selected.duration,
-                  doctorName: selected.doctorName 
+                  doctorName: selected.doctorName
                 }));
                 setStep('datetime');
-              }} 
+              }}
             />
           )}
 
           {activeView === 'datetime' && (
-            <DateTimeSelector 
+            <DateTimeSelector
               direction={direction}
               onSelect={handleDateTimeSelect}
               serviceDuration={booking.serviceDuration}
@@ -463,9 +455,9 @@ function App() {
           {activeView === 'doctor' && (
             <DoctorSelector
               direction={direction}
-              doctors={DOCTORS.filter(d => 
-                booking.treatmentName === 'MEDICINA ESTETICA' 
-                  ? d.id === 'minio' 
+              doctors={DOCTORS.filter(d =>
+                booking.treatmentName === 'MEDICINA ESTETICA'
+                  ? d.id === 'minio'
                   : d.id === 'bosco'
               )}
               onSelect={(_, name) => {
@@ -476,7 +468,7 @@ function App() {
           )}
 
           {activeView === 'contact' && (
-            <ContactForm 
+            <ContactForm
               direction={direction}
               initialData={patientData}
               onChange={setPatientData}
@@ -486,9 +478,9 @@ function App() {
                 localStorage.removeItem('booking_data');
                 localStorage.removeItem('patient_data');
                 localStorage.removeItem('booking_timestamp');
-                
+
                 const phone = data.phoneNumber?.replace(/\s/g, '');
-                
+
                 // Demo Triggers based on Phone Number
                 if (phone === '0000000000' && slotExpired) {
                   setOutcomeType('error');
@@ -503,19 +495,19 @@ function App() {
                   setOutcomeType('success');
                   setErrorDetails({});
                 }
-                
+
                 setStep('success');
               }}
             />
           )}
 
           {activeView === 'success' && (
-            <OutcomeScreen 
+            <OutcomeScreen
               type={outcomeType}
               errorTitle={errorDetails.title}
               errorMessage={errorDetails.message}
               retryStep={errorDetails.retryStep}
-              booking={booking} 
+              booking={booking}
               direction={direction}
               onReset={handleReset}
             />
@@ -525,7 +517,7 @@ function App() {
 
       {/* Summary Footer Area - Hidden if keyboard is active to save space */}
       {!isKeyboardActive && activeView !== 'home' && activeView !== 'success' && (
-        <BookingFooter 
+        <BookingFooter
           treatmentName={booking.treatmentName}
           dateTime={booking.dateTime}
           doctorName={booking.doctorName}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Timer, AlertTriangle, X } from "lucide-react";
+import { Timer, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SlotTimerProps {
