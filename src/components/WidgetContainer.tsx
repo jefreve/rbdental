@@ -208,7 +208,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
   };
 
   return (
-    <div id="booking-widget-container" ref={containerRef} className="relative">
+    <div id="booking-widget-container" ref={containerRef} className="relative h-full w-full">
       {shadowRoot && createPortal(
         <div className={cn(
           "widget-viewport shadow-2xl border border-black/5 rounded-[var(--radius)] text-foreground antialiased relative z-0",
