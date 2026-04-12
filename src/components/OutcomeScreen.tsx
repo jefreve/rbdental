@@ -32,7 +32,7 @@ export function OutcomeScreen({
       role="status"
       aria-live="polite"
       className={cn(
-      "w-full mx-auto animate-in fade-in duration-700 flex flex-col items-center text-center justify-center pt-0 pb-10 sm:pb-0",
+      "w-full mx-auto animate-in fade-in duration-700 flex flex-col items-center text-center justify-start pt-4 pb-10 sm:pb-0",
       direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
     )}>
       <h2 className="text-[20px] sm:text-[18px] font-bold mb-3 font-heading flex items-center justify-center gap-2">

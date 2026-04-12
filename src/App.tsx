@@ -331,7 +331,7 @@ function App() {
         <div className={cn(
           "flex flex-col items-center min-h-full text-center transition-all duration-300",
           activeView === 'success'
-            ? "justify-start pt-16 sm:justify-center sm:pt-0 sm:pb-0"
+            ? "justify-start pt-6 sm:justify-center sm:pt-0 sm:pb-0"
             : (isKeyboardActive ? "pb-4" : "pb-10 justify-center")
         )}>
           {activeView === 'home' && (
