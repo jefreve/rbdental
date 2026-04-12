@@ -39,25 +39,6 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
     }
   }, []);
 
-  // 1b. SCROLL DEBUGGER
-  useLayoutEffect(() => {
-    if (!shadowRoot || !containerRef.current) return;
-    
-    const viewport = shadowRoot.querySelector('.widget-viewport');
-    if (viewport) {
-      console.log('🕵️ RB Widget: Scroll Debugger Attoivato');
-      const obs = new ResizeObserver((entries) => {
-        for (let entry of entries) {
-          const { height } = entry.contentRect;
-          const isScrollable = (viewport as HTMLElement).scrollHeight > Math.ceil(height);
-          console.log(`🕵️ Shadow Viewport Height: ${height}px | ScrollHeight: ${(viewport as HTMLElement).scrollHeight}px | Scrollable: ${isScrollable}`);
-        }
-      });
-      obs.observe(viewport);
-      return () => obs.disconnect();
-    }
-  }, [shadowRoot]);
-
   // 2. DYNAMIC BRANDING UPDATES (Runs on Config change)
   useLayoutEffect(() => {
     if (!shadowRoot) return;

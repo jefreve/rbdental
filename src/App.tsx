@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { TreatmentSelector } from "./components/TreatmentSelector"
@@ -80,6 +80,18 @@ function App() {
   const [slotExpired, setSlotExpired] = useState(false);
   const [showExpiredBanner, setShowExpiredBanner] = useState(false);
   const [slotTakenByOther, setSlotTakenByOther] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll to top on step change
+  useEffect(() => {
+    // We target the closest scrollable container (the viewport in Shadow DOM)
+    const viewport = scrollContainerRef.current?.closest('.widget-viewport');
+    if (viewport) {
+      viewport.scrollTo(0, 0);
+    } else if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo(0, 0);
+    }
+  }, [step]);
 
   // Persistence effects
   useEffect(() => {
@@ -252,7 +264,8 @@ function App() {
 
   return (
     <div className={cn(
-      "flex flex-col h-full w-full text-center mx-auto bg-background relative",
+      "w-full text-center mx-auto bg-background relative",
+      activeView === 'success' ? "block" : "flex flex-col h-full",
       isKeyboardActive && "keyboard-active"
     )}>
       <Toaster />
@@ -323,10 +336,13 @@ function App() {
 
       {/* Main Content Area - Scrollable Body */}
       <main
+        ref={scrollContainerRef}
         className={cn(
-          "flex-1 w-full overflow-x-hidden px-6 sm:px-10 h-0 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
-          isKeyboardActive ? "pb-2" : (activeView === 'success' ? "pb-6 sm:pb-0" : "pb-6"),
-          activeView === 'success' ? "overflow-y-auto animate-in fade-in zoom-in-95 duration-500" : "overflow-y-auto"
+          "w-full overflow-x-hidden px-6 sm:px-10 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
+          activeView === 'success' 
+            ? "block h-auto pt-6 pb-20 animate-in fade-in zoom-in-95 duration-500" 
+            : "flex-1 h-0 overflow-y-auto",
+          isKeyboardActive ? "pb-2" : (activeView !== 'success' && "pb-6")
         )}>
         <div className={cn(
           "w-full text-center transition-all duration-300",
