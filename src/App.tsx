@@ -326,13 +326,13 @@ function App() {
         className={cn(
           "flex-1 w-full overflow-x-hidden px-6 sm:px-10 h-0 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
           isKeyboardActive ? "pb-2" : (activeView === 'success' ? "pb-6 sm:pb-0" : "pb-6"),
-          activeView === 'success' ? "overflow-y-auto flex flex-col animate-in fade-in zoom-in-95 duration-500" : "overflow-y-auto"
+          activeView === 'success' ? "overflow-y-auto animate-in fade-in zoom-in-95 duration-500" : "overflow-y-auto"
         )}>
         <div className={cn(
-          "flex flex-col items-center min-h-full text-center transition-all duration-300",
+          "w-full text-center transition-all duration-300",
           activeView === 'success'
-            ? "justify-start pt-6 sm:justify-center sm:pt-0 sm:pb-0"
-            : (isKeyboardActive ? "pb-4" : "pb-10 justify-center")
+            ? "pt-4 pb-8"
+            : (isKeyboardActive ? "pb-4 flex flex-col items-center min-h-full justify-start" : "pb-10 flex flex-col items-center min-h-full justify-center")
         )}>
           {activeView === 'home' && (
             <div className={cn(
