@@ -85,11 +85,9 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         display: flex;
         flex-direction: column;
         background-color: white;
-        width: 420px;
-        height: 600px;
-        max-width: calc(100vw - 1rem);
-        max-height: 85dvh;
-        margin: 0.5rem;
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
         overflow: hidden;
         border-radius: var(--radius);
         position: relative;
