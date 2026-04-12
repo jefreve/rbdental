@@ -14,7 +14,7 @@ To prevent the host website's CSS from breaking the widget (and vice versa), the
 
 - **Implementation:** Use a `WidgetContainer` component that creates a shadow root.
 - **Shadow DOM Isolation:** Wraps the app in a Shadow Root to prevent style leakage.
-- **Selective Style Injection:** Only clones host style tags containing widget-specific classes (e.g., `.widget-viewport`) into the shadow root, ignoring host site stylesheets and font overrides.
+- **Selective Style Injection:** Clones all `<style>` tags from the host document into the shadow root (to support CSS-in-JS/Vite injections) but ignores `<link>` tags to prevent host site CSS/Font leakage.
 
 ## 3. Robust Self-Mounting Logic
 The entry point (`main.tsx`) must handle the asynchronous nature of modern websites (like Next.js).

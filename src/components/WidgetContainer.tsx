@@ -31,12 +31,10 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
       const root = containerRef.current.attachShadow({ mode: 'open' });
       setShadowRoot(root);
       
-      // Sincronizziamo SOLO gli stili che appartengono al widget
-      // Cerchiamo i tag <style> che contengono classi chiave del nostro widget
+      // Sincronizziamo TUTTI i tag <style> (dove il widget inietta i suoi CSS)
+      // Ma ignoriamo i <link> (dove il sito ospite tiene i suoi stili e font)
       document.querySelectorAll('style').forEach(s => {
-        if (s.textContent?.includes('widget-viewport') || s.textContent?.includes('booking-widget')) {
-          root.appendChild(s.cloneNode(true));
-        }
+        root.appendChild(s.cloneNode(true));
       });
     } else if (containerRef.current?.shadowRoot) {
       setShadowRoot(containerRef.current.shadowRoot);
