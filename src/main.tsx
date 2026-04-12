@@ -19,8 +19,14 @@ const mountWidget = () => {
     const primaryColor = container.getAttribute('data-primary-color') || clinicConfig.branding.primaryColor;
     const secondaryColor = container.getAttribute('data-secondary-color') || clinicConfig.branding.secondaryColor;
     const fontFamily = container.getAttribute('data-font-family') || clinicConfig.branding.fontFamily;
+    
+    // Logica Logo: mostriamo solo se show-logo è true E c'è un url
+    const showLogoAttr = container.getAttribute('data-show-logo');
+    const logoUrlAttr = container.getAttribute('data-logo-url');
+    const showLogo = showLogoAttr === 'true' && !!logoUrlAttr;
+    const logoUrl = logoUrlAttr || '';
 
-    console.log('🎨 RB Widget Branding:', { primaryColor, secondaryColor, fontFamily });
+    console.log('🎨 RB Widget Branding:', { primaryColor, secondaryColor, fontFamily, showLogo, logoUrl });
 
     // 2. Applichiamo questi valori come Variabili CSS al contenitore
     container.style.setProperty('--primary-color', primaryColor);
@@ -45,7 +51,9 @@ const mountWidget = () => {
             branding: { 
               primaryColor, 
               secondaryColor,
-              fontFamily 
+              fontFamily,
+              showLogo,
+              logoUrl
             } 
           }}
         >

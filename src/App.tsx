@@ -52,7 +52,7 @@ function App() {
     const saved = localStorage.getItem('booking_step');
     return (saved as any) || 'home';
   });
-  const { isExpanded, setIsExpanded, setIsSuccessStep } = useWidget();
+  const { isExpanded, setIsExpanded, setIsSuccessStep, config } = useWidget();
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const [booking, setBooking] = useState<BookingState>(() => {
     if (!isSessionValid()) return {};
@@ -408,13 +408,15 @@ function App() {
               </div>
 
               {/* BOTTOM SPACER + LOGO - Reduced padding to pull logo further down */}
-              <div className="flex-1 w-full flex flex-col justify-end pb-4">
-                <div className="flex flex-col items-center transition-all duration-500 shrink-0">
-                  <div className="w-36 h-36 flex items-center justify-center">
-                    <img src="/logo-rbdental.png" alt="R.B. Dental Logo" className="w-full h-full object-contain" />
+              {config.branding.showLogo && config.branding.logoUrl && (
+                <div className="flex-1 w-full flex flex-col justify-end pb-4">
+                  <div className="flex flex-col items-center transition-all duration-500 shrink-0">
+                    <div className="w-36 h-36 flex items-center justify-center">
+                      <img src={config.branding.logoUrl} alt="Clinic Logo" className="w-full h-full object-contain" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           )}
 

@@ -32,12 +32,16 @@ The widget reads `data-` attributes from the host container to allow real-time b
 | `data-primary-color` | Changes the main brand color (buttons, icons, highlights) | `#e11d48` |
 | `data-secondary-color` | Changes the background of some UI elements | `#f8fafc` |
 | `data-font-family` | Changes the entire widget typography | `'Outfit', sans-serif` |
+| `data-show-logo` | Toggle visibility of the footer logo (`true`/`false`) | `true` |
+| `data-logo-url` | URL path for the clinic logo (required if show-logo is true) | `/img/logo.png` |
 
 ### How to use
 ```html
 <div id="rb-booking-widget-root" 
-     data-primary-color="#FF0000" 
-     data-font-family="Arial">
+     data-primary-color="#000000" 
+     data-font-family="Georgia"
+     data-show-logo="true"
+     data-logo-url="https://yoursite.com/logo.png">
 </div>
 ```
 

@@ -15,6 +15,8 @@ export interface ClinicConfig {
     fontFamily: string;
     borderRadius: string;
     preset: 'Modern' | 'Classic' | 'Minimal';
+    showLogo?: boolean;
+    logoUrl?: string;
   };
   insurances?: string[];
 }

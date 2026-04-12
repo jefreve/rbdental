@@ -19,6 +19,8 @@ export interface ExternalConfig {
     primaryColor?: string;
     secondaryColor?: string;
     fontFamily?: string;
+    showLogo?: boolean;
+    logoUrl?: string;
   }
 }
 
