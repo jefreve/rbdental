@@ -334,15 +334,19 @@ function App() {
         </div>
       )}
 
-      {/* Slot Expired Banner - Appears 1s after expiration */}
       {showExpiredBanner && activeView !== 'home' && activeView !== 'success' && (
-        <div
-          role="alert"
-          aria-live="assertive"
-          className="w-full bg-orange-500/95 text-white text-[13px] font-semibold px-4 py-2 flex items-center justify-center gap-2 animate-in slide-in-from-top-1 duration-300 shrink-0"
-        >
-          <AlertTriangle className="w-4 h-4 shrink-0" />
-          <span>Attenzione: il tempo è scaduto. Lo slot potrebbe non essere più disponibile.</span>
+        <div className="mx-6 sm:mx-10 mt-4 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
+          <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="text-left">
+            <p className="text-[14px] font-bold text-amber-700 leading-tight">Sessione Scaduta</p>
+            <p className="text-[12px] text-amber-700/80 mt-1">Lo slot non è più riservato. Puoi comunque procedere, ma la disponibilità verrà ricontrollata alla fine.</p>
+            <button 
+              onClick={() => setShowExpiredBanner(false)}
+              className="text-[12px] font-bold underline mt-2 text-amber-700"
+            >
+              Ho capito
+            </button>
+          </div>
         </div>
       )}
 
@@ -350,17 +354,15 @@ function App() {
       <main
         ref={scrollContainerRef}
         className={cn(
-          "w-full overflow-x-hidden px-6 sm:px-10 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
-          activeView === 'success' 
-            ? "block h-auto pt-6 pb-20 animate-in fade-in zoom-in-95 duration-500" 
-            : "flex-1 h-0 overflow-y-auto",
-          isKeyboardActive ? "pb-2" : (activeView !== 'success' && "pb-6")
+          "flex-1 w-full overflow-x-hidden px-6 sm:px-10 h-0 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300 overflow-y-auto",
+          isKeyboardActive ? "pb-2" : (activeView === 'success' ? "pb-6" : "pb-6"),
+          activeView === 'success' && "animate-in fade-in zoom-in-95 duration-500"
         )}>
         <div className={cn(
           "w-full text-center transition-all duration-300",
           activeView === 'success'
-            ? "pt-4 pb-8"
-            : (isKeyboardActive ? "pb-4 flex flex-col items-center min-h-full justify-start" : "pb-10 flex flex-col items-center min-h-full justify-center")
+            ? "pt-6 pb-12 block"
+            : (isKeyboardActive ? "flex flex-col items-center min-h-full justify-start pb-4" : "flex flex-col items-center min-h-full justify-center pb-10")
         )}>
           {activeView === 'home' && (
             <div className={cn(
