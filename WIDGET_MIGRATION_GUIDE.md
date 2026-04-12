@@ -41,6 +41,13 @@ window.RB_WIDGET_CONFIG = {
   texts: {
     welcomeTitle: 'Chiedi una consulenza',
     mainButton: 'Inizia Ora'
+  },
+  layout: {
+    scrollableSteps: {
+      home: false,       // Fixes home teaser to container height
+      success: false,    // Prevents unnecessary bounce on confirmation
+      contact: true      // Ensures long forms are scrollable
+    }
   }
 };
 ```
@@ -55,8 +62,14 @@ Useful for quick adjustments or non-developer environments.
 | `data-show-logo` | Toggle footer logo (`true`/`false`) | `true` |
 | `data-logo-url` | Path for the clinic logo | `/img/logo.png` |
 
+## 5. Layout & Scrolling Control
+The widget allows granular control over vertical scrolling for each step. This is critical when the host site container is very tall or very small.
+
+- **Scenario: Tall Container (>700px):** Disable scroll for "home" and "success" to create a premium, non-bouncing app-like feel.
+- **Scenario: Small Container (<500px):** Keep all steps scrollable (`true`) to ensure buttons at the bottom are reachable.
+
 ---
 *Priority: Global JS Object > Data Attributes > Default Config*
 
 ---
-*Last updated: 2026-04-12*
+*Last updated: 2026-04-12 (implemented scrollableSteps logic)*

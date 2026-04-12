@@ -22,13 +22,34 @@ export interface ClinicConfig {
   texts?: {
     welcomeTitle?: string;
     mainButton?: string;
+    widgetTitle?: string;
+  };
+  layout?: {
+    scrollableSteps?: {
+      home?: boolean;
+      treatment?: boolean;
+      datetime?: boolean;
+      doctor?: boolean;
+      contact?: boolean;
+      success?: boolean;
+    };
   };
 }
 
 export const clinicConfig: ClinicConfig = {
-  name: "R.B. Dental", // Il nome mostrato nel widget e nelle dashboard
-  mockMode: true, // Se attivo, usa i MockProvider invece di Supabase (Fase 1)
+  name: "R.B. Dental", 
+  mockMode: true, 
 
+  layout: {
+    scrollableSteps: {
+      home: false,      // Ottimo per presentazioni fisse in container alti
+      treatment: true,
+      datetime: true,
+      doctor: true,
+      contact: true,
+      success: false    // Evita scroll accidentali se il widget è alto
+    }
+  },
   insurances: [
     "Previmedical",
     "Metasalute",
