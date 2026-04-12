@@ -13,7 +13,8 @@ To bundle the entire app into a single JavaScript file, we use Vite's `lib` mode
 To prevent the host website's CSS from breaking the widget (and vice versa), the entire app is wrapped in a Shadow DOM.
 
 - **Implementation:** Use a `WidgetContainer` component that creates a shadow root.
-- **Style Injection:** All widget styles are injected inside this shadow root.
+- **Shadow DOM Isolation:** Wraps the app in a Shadow Root to prevent style leakage.
+- **Selective Style Injection:** Only clones host style tags containing widget-specific classes (e.g., `.widget-viewport`) into the shadow root, ignoring host site stylesheets and font overrides.
 
 ## 3. Robust Self-Mounting Logic
 The entry point (`main.tsx`) must handle the asynchronous nature of modern websites (like Next.js).
