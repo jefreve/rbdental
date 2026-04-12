@@ -8,27 +8,52 @@ import { WidgetProvider } from './context/WidgetContext'
 
 import { clinicConfig } from './config/clinicConfig'
 
+declare global {
+  interface Window {
+    RB_WIDGET_CONFIG?: {
+      branding?: {
+        primaryColor?: string;
+        secondaryColor?: string;
+        fontFamily?: string;
+        showLogo?: boolean;
+        logoUrl?: string;
+      }
+    }
+  }
+}
+
 const mountWidget = () => {
   const containerId = 'rb-booking-widget-root';
   let container = document.getElementById(containerId);
 
   if (container) {
-    console.log('✅ RB Widget: Contenitore trovato, leggo configurazioni...');
+    console.log('✅ RB Widget: Contenitore trovato. Caricamento configurazioni...');
     
-    // 1. Estraiamo i parametri dall'HTML del sito ospite (con fallback ai default)
-    const primaryColor = container.getAttribute('data-primary-color') || clinicConfig.branding.primaryColor;
-    const secondaryColor = container.getAttribute('data-secondary-color') || clinicConfig.branding.secondaryColor;
-    const fontFamily = container.getAttribute('data-font-family') || clinicConfig.branding.fontFamily;
+    // 1. Priorità: Config Global JS > Attributi HTML > Defaults
+    const globalConfig = window.RB_WIDGET_CONFIG?.branding || {};
     
-    // Logica Logo: mostriamo solo se show-logo è true E c'è un url
-    const showLogoAttr = container.getAttribute('data-show-logo');
-    const logoUrlAttr = container.getAttribute('data-logo-url');
-    const showLogo = showLogoAttr === 'true' && !!logoUrlAttr;
-    const logoUrl = logoUrlAttr || '';
+    const primaryColor = globalConfig.primaryColor || 
+                         container.getAttribute('data-primary-color') || 
+                         clinicConfig.branding.primaryColor;
+                         
+    const secondaryColor = globalConfig.secondaryColor || 
+                           container.getAttribute('data-secondary-color') || 
+                           clinicConfig.branding.secondaryColor;
+                           
+    const fontFamily = globalConfig.fontFamily || 
+                       container.getAttribute('data-font-family') || 
+                       clinicConfig.branding.fontFamily;
 
-    console.log('🎨 RB Widget Branding:', { primaryColor, secondaryColor, fontFamily, showLogo, logoUrl });
+    const showLogo = globalConfig.showLogo !== undefined ? globalConfig.showLogo : 
+                    (container.getAttribute('data-show-logo') === 'true');
+                    
+    const logoUrl = globalConfig.logoUrl || 
+                    container.getAttribute('data-logo-url') || 
+                    clinicConfig.branding.logoUrl || '';
 
-    // 2. Applichiamo questi valori come Variabili CSS al contenitore
+    console.log('🎨 RB Widget Branding Applied:', { primaryColor, secondaryColor, fontFamily, showLogo, logoUrl });
+
+    // 2. Applichiamo Variabili CSS
     container.style.setProperty('--primary-color', primaryColor);
     container.style.setProperty('--font-family', fontFamily);
 

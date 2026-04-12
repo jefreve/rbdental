@@ -24,26 +24,34 @@ The entry point (`main.tsx`) must handle the asynchronous nature of modern websi
 - **Fallback:** If the specific container isn't found, the widget can auto-mount to the bottom of the `body`.
 
 ## 4. External Customization
-The widget reads `data-` attributes from the host container to allow real-time branding adjustments without needing a rebuild.
+The widget can be customized using either a global JavaScript object (recommended) or HTML `data-` attributes.
 
-### Available Attributes
+### Option A: Global JavaScript Object (Preferred)
+Define a configuration object in your host site's script before or after loading the widget. This is the cleanest way to manage multiple settings.
+
+```javascript
+window.RB_WIDGET_CONFIG = {
+  branding: {
+    primaryColor: '#000000',
+    fontFamily: 'Georgia, serif',
+    showLogo: true,
+    logoUrl: '/assets/my-logo.png'
+  }
+};
+```
+
+### Option B: HTML Data Attributes
+Useful for quick adjustments or non-developer environments.
+
 | Attribute | Description | Example |
 |-----------|-------------|---------|
-| `data-primary-color` | Changes the main brand color (buttons, icons, highlights) | `#e11d48` |
-| `data-secondary-color` | Changes the background of some UI elements | `#f8fafc` |
-| `data-font-family` | Changes the entire widget typography | `'Outfit', sans-serif` |
-| `data-show-logo` | Toggle visibility of the footer logo (`true`/`false`) | `true` |
-| `data-logo-url` | URL path for the clinic logo (required if show-logo is true) | `/img/logo.png` |
+| `data-primary-color` | Main brand color | `#e11d48` |
+| `data-font-family` | Widget typography | `'Outfit', sans-serif` |
+| `data-show-logo` | Toggle footer logo (`true`/`false`) | `true` |
+| `data-logo-url` | Path for the clinic logo | `/img/logo.png` |
 
-### How to use
-```html
-<div id="rb-booking-widget-root" 
-     data-primary-color="#000000" 
-     data-font-family="Georgia"
-     data-show-logo="true"
-     data-logo-url="https://yoursite.com/logo.png">
-</div>
-```
+---
+*Priority: Global JS Object > Data Attributes > Default Config*
 
 ---
 *Last updated: 2026-04-12*
