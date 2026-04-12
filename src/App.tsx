@@ -359,17 +359,17 @@ function App() {
         )}>
         <div className={cn(
           "w-full text-center transition-all duration-300",
-          activeView === 'success'
-            ? "pt-6 pb-12 block"
+          (activeView === 'success' || activeView === 'home')
+            ? "pt-8 pb-12 block"
             : (isKeyboardActive ? "flex flex-col items-center min-h-full justify-start pb-4" : "flex flex-col items-center min-h-full justify-center pb-10")
         )}>
           {activeView === 'home' && (
             <div className={cn(
-              "flex-1 flex flex-col items-center gap-4 w-full animate-in fade-in duration-700 h-full",
+              "flex flex-col items-center gap-4 w-full animate-in fade-in duration-700",
               direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
             )}>
-              {/* TOP SPACER - Increased flex weight to push everything further down */}
-              <div className="flex-[1.5] w-full" aria-hidden="true" />
+              {/* TOP SPACER - Pure block spacing */}
+              <div className="h-6 w-full" aria-hidden="true" />
 
               {/* Prenota Button - Balanced for perfect horizontal center */}
               <div className="flex items-center justify-center gap-2 w-full max-w-[400px]">
@@ -438,9 +438,9 @@ function App() {
                 </div>
               </div>
 
-              {/* BOTTOM SPACER + LOGO - Reduced padding to pull logo further down */}
+              {/* BOTTOM SPACER + LOGO - Using padding for block layout consistency */}
               {config.branding.showLogo && config.branding.logoUrl && (
-                <div className="flex-1 w-full flex flex-col justify-end pb-4">
+                <div className="w-full flex flex-col items-center pt-12 pb-4">
                   <div className="flex flex-col items-center transition-all duration-500 shrink-0">
                     <div className="w-36 h-36 flex items-center justify-center">
                       <img src={config.branding.logoUrl} alt="Clinic Logo" className="w-full h-full object-contain" />
