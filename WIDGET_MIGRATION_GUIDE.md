@@ -34,8 +34,13 @@ window.RB_WIDGET_CONFIG = {
   branding: {
     primaryColor: '#000000',
     fontFamily: 'Georgia, serif',
+    borderRadius: '12px',
     showLogo: true,
     logoUrl: '/assets/my-logo.png'
+  },
+  texts: {
+    welcomeTitle: 'Chiedi una consulenza',
+    mainButton: 'Inizia Ora'
   }
 };
 ```

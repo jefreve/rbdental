@@ -15,9 +15,14 @@ declare global {
         primaryColor?: string;
         secondaryColor?: string;
         fontFamily?: string;
+        borderRadius?: string;
         showLogo?: boolean;
         logoUrl?: string;
-      }
+      };
+      texts?: {
+        welcomeTitle?: string;
+        mainButton?: string;
+      };
     }
   }
 }
@@ -31,6 +36,7 @@ const mountWidget = () => {
     
     // 1. Priorità: Config Global JS > Attributi HTML > Defaults
     const globalConfig = window.RB_WIDGET_CONFIG?.branding || {};
+    const globalTexts = window.RB_WIDGET_CONFIG?.texts || {};
     
     const primaryColor = globalConfig.primaryColor || 
                          container.getAttribute('data-primary-color') || 
@@ -44,6 +50,10 @@ const mountWidget = () => {
                        container.getAttribute('data-font-family') || 
                        clinicConfig.branding.fontFamily;
 
+    const borderRadius = globalConfig.borderRadius || 
+                         container.getAttribute('data-border-radius') || 
+                         clinicConfig.branding.borderRadius;
+
     const showLogo = globalConfig.showLogo !== undefined ? globalConfig.showLogo : 
                     (container.getAttribute('data-show-logo') === 'true');
                     
@@ -51,11 +61,12 @@ const mountWidget = () => {
                     container.getAttribute('data-logo-url') || 
                     clinicConfig.branding.logoUrl || '';
 
-    console.log('🎨 RB Widget Branding Applied:', { primaryColor, secondaryColor, fontFamily, showLogo, logoUrl });
+    console.log('🎨 RB Widget Branding Applied:', { primaryColor, secondaryColor, fontFamily, borderRadius, showLogo, logoUrl });
 
     // 2. Applichiamo Variabili CSS
     container.style.setProperty('--primary-color', primaryColor);
     container.style.setProperty('--font-family', fontFamily);
+    container.style.setProperty('--border-radius', borderRadius);
 
     const parent = container.parentElement;
     if (parent) {
@@ -67,7 +78,7 @@ const mountWidget = () => {
     container.style.width = '100%';
     container.style.height = '100%';
     container.style.display = 'block';
-    container.style.overflow = 'hidden';
+    container.style.overflow = 'auto'; // Abilitiamo lo scroll interno
 
     createRoot(container).render(
       <StrictMode>
@@ -77,9 +88,11 @@ const mountWidget = () => {
               primaryColor, 
               secondaryColor,
               fontFamily,
+              borderRadius,
               showLogo,
               logoUrl
-            } 
+            },
+            texts: globalTexts
           }}
         >
           <WidgetContainer>

@@ -277,7 +277,7 @@ function App() {
           )}
           <div className="flex-1 text-center">
             <h1 className="text-[20px] sm:text-[18px] font-semibold text-white tracking-tight flex items-center justify-center gap-1.5 px-10 transitions-all duration-300">
-              <span className="truncate">Prenota una visita in pochi</span>
+              <span className="truncate">{config.texts?.welcomeTitle || "Prenota una visita in pochi"}</span>
               <Clock className="w-5 h-5 sm:w-5 sm:h-5 shrink-0 mb-0.5" />
             </h1>
           </div>
@@ -357,7 +357,9 @@ function App() {
                   }}
                   className="w-full sm:w-80 h-14 text-[18px] sm:text-[16px] font-semibold text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  {(step === 'home' || step === 'success') ? 'Prenota' : 'Continua Prenotazione'}
+                  {(step === 'home' || step === 'success') 
+                    ? (config.texts?.mainButton || 'Prenota') 
+                    : 'Continua Prenotazione'}
                 </Button>
                 <div className="h-10 w-10 shrink-0 hidden sm:block opacity-0" aria-hidden="true" />
               </div>

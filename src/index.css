@@ -71,6 +71,15 @@
     --radius: 0.625rem;
     --font-heading: var(--font-family, 'Inter', sans-serif);
     --font-sans: var(--font-family, 'Inter', sans-serif);
+    --secondary-color: #f8fafc;
+    --accent-color: #0ea5e9;
+    --font-family: 'Inter', sans-serif;
+    --border-radius: 0.5rem;
+}
+
+/* Aggressive Border Radius Override */
+.rounded-xl, .rounded-2xl, .rounded-lg, .rounded-md, button, input {
+  border-radius: var(--border-radius) !important;
 }
 
 .dark {

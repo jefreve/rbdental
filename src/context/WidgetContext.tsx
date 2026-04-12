@@ -19,8 +19,13 @@ export interface ExternalConfig {
     primaryColor?: string;
     secondaryColor?: string;
     fontFamily?: string;
+    borderRadius?: string;
     showLogo?: boolean;
     logoUrl?: string;
+  };
+  texts?: {
+    welcomeTitle?: string;
+    mainButton?: string;
   }
 }
 

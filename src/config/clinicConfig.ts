@@ -19,6 +19,10 @@ export interface ClinicConfig {
     logoUrl?: string;
   };
   insurances?: string[];
+  texts?: {
+    welcomeTitle?: string;
+    mainButton?: string;
+  };
 }
 
 export const clinicConfig: ClinicConfig = {
