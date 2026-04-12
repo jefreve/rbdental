@@ -276,8 +276,7 @@ function App() {
 
   return (
     <div className={cn(
-      "w-full text-center mx-auto bg-background relative",
-      activeView === 'success' ? "block" : "flex flex-col h-full",
+      "flex flex-col h-full w-full text-center mx-auto bg-background relative",
       isKeyboardActive && "keyboard-active"
     )}>
       <Toaster />
