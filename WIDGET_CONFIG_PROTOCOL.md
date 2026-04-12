@@ -1,4 +1,4 @@
-# Protocollo di Configurazione Booking Widget R.B. Dental (v2 Final)
+# Protocollo di Configurazione Booking Widget R.B. Dental (v2.2 Final)
 
 Questo protocollo permette un'integrazione "pixel-perfect" con il sito ospite tramite l'oggetto globale `window.RB_WIDGET_CONFIG`.
 
@@ -14,10 +14,11 @@ branding: {
     titleSize: '24px',       // Titoli principali (H1)
     buttonSize: '16px',      // Testo dei pulsanti
     
-    // Configurazione Pesi e Tracking (Richiesti per coerenza)
+    // Configurazione Pesi e Tracking
     titleWeight: '800',      // Peso font titoli (es. bold/800)
     baseWeight: '400',       // Peso font corpo
-    titleLetterSpacing: '0.1em' // Tracking (es. 0.1em per titoli distanziati)
+    titleLetterSpacing: '0.1em',  // Spaziatura lettere titoli
+    buttonLetterSpacing: '0.15em' // Tracking specifico per i pulsanti (es. INIZIA ORA)
   }
 }
 ```
@@ -25,7 +26,7 @@ branding: {
 ## 2. Layout & Integrazione Nativa
 ```javascript
 layout: {
-  // 'minimal': Sfondo trasparente (header bianco pulito come richiesto)
+  // 'minimal': Sfondo trasparente (header bianco pulito)
   // 'solid': Barra colorata con Primary Color
   headerStyle: 'minimal', 
   
@@ -44,12 +45,14 @@ layout: {
 }
 ```
 
-## 3. Contenuti & Sottotitoli
+## 3. Contenuti & Testi
+**Nota:** Per rimuovere il sottotitolo (subtitle), passare una stringa vuota `''`.
+
 ```javascript
 texts: {
-  welcomeTitle: 'CONTATTACI',
-  welcomeSubtitle: 'SIAMO QUI PER AIUTARTI',
-  mainButton: 'PRENOTA VISITÀ'
+  welcomeTitle: 'PRENOTA UNA VISITA',
+  welcomeSubtitle: '',   // Lasciare vuoto per nascondere il sottotitolo
+  mainButton: 'INIZIA ORA'
 }
 ```
 
@@ -59,13 +62,14 @@ Copia questo blocco per far sparire il widget dentro la tua pagina, facendolo se
 ```javascript
 window.RB_WIDGET_CONFIG = {
   branding: {
-    primaryColor: '#005b88', // Usa il tuo Blu esatto
+    primaryColor: '#005b88', 
     fontFamily: "'Inter', sans-serif",
     borderRadius: '4px',
     typography: {
       titleSize: '24px',
       titleWeight: '800',
       titleLetterSpacing: '0.1em',
+      buttonLetterSpacing: '0.15em', // Match dello spacing del tasto INVIA
       baseWeight: '400'
     }
   },
@@ -73,16 +77,16 @@ window.RB_WIDGET_CONFIG = {
     headerStyle: 'minimal',
     verticalGap: '1.8rem',
     buttonWidth: '100%',
-    showButtonIcon: true,
+    showButtonIcon: false,
     scrollableSteps: { home: false, success: false }
   },
   texts: {
-    welcomeTitle: 'CONTATTACI',
-    welcomeSubtitle: 'SIAMO QUI PER AIUTARTI',
-    mainButton: 'INVIA'
+    welcomeTitle: 'PRENOTA UNA VISITA',
+    welcomeSubtitle: '', // Niente sottotitolo
+    mainButton: 'INIZIA ORA'
   }
 };
 ```
 
 ---
-*Ultimo aggiornamento: 12 Aprile 2026 (v2.1 UI Performance)*
+*Ultimo aggiornamento: 12 Aprile 2026 (v2.2 Button Tracking Update)*

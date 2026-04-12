@@ -414,7 +414,7 @@ function App() {
                   }}
                   style={{ width: config.layout?.buttonWidth || 'auto' }}
                   className={cn(
-                    "h-14 text-[length:var(--f-button)] font-[var(--f-w-title)] text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2",
+                    "h-14 text-[length:var(--f-button)] font-[var(--f-w-title)] tracking-[var(--f-ls-button)] text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2",
                     (!config.layout?.buttonWidth || config.layout.buttonWidth === 'auto') ? "w-full sm:w-80" : ""
                   )}
                 >

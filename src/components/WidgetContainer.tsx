@@ -83,6 +83,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         --f-small: ${branding.typography?.smallSize || '12px'} !important;
         
         --f-ls-title: ${branding.typography?.titleLetterSpacing || 'normal'} !important;
+        --f-ls-button: ${branding.typography?.buttonLetterSpacing || 'normal'} !important;
         --f-w-title: ${branding.typography?.titleWeight || '700'} !important;
         --f-w-base: ${branding.typography?.baseWeight || '400'} !important;
         --v-gap: ${config.layout?.verticalGap || '1rem'} !important;

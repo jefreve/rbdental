@@ -300,7 +300,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
         <Button 
           type="submit" 
           className={cn(
-            "w-full h-12 text-[length:var(--f-button)] font-[var(--f-w-title)] text-white transition-all",
+            "w-full h-12 text-[length:var(--f-button)] font-[var(--f-w-title)] tracking-[var(--f-ls-button)] text-white transition-all",
             showErrors && !isFormValid && "opacity-80 grayscale-[20%]"
           )}
         >

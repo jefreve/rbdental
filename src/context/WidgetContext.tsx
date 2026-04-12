@@ -29,6 +29,7 @@ export interface ExternalConfig {
       buttonSize?: string;
       smallSize?: string;
       titleLetterSpacing?: string;
+      buttonLetterSpacing?: string;
       titleWeight?: string;
       baseWeight?: string;
     };

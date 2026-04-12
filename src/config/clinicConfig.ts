@@ -16,6 +16,7 @@ export interface ClinicConfig {
       smallSize?: string;       // Default: 12px
       titleLetterSpacing?: string; // Default: normal
       titleWeight?: string;        // Default: 700
+      buttonLetterSpacing?: string; // Default: normal
       baseWeight?: string;         // Default: 400
     };
   };
@@ -58,6 +59,7 @@ export const clinicConfig: ClinicConfig = {
       smallSize: "12px",
       titleLetterSpacing: "normal",
       titleWeight: "700",
+      buttonLetterSpacing: "normal",
       baseWeight: "400"
     }
   },
