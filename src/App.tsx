@@ -252,7 +252,7 @@ function App() {
 
   return (
     <div className={cn(
-      "flex flex-col h-full w-full text-center mx-auto overflow-hidden bg-background relative",
+      "flex flex-col h-full w-full text-center mx-auto bg-background relative",
       isKeyboardActive && "keyboard-active"
     )}>
       <Toaster />
@@ -326,7 +326,7 @@ function App() {
         className={cn(
           "flex-1 w-full overflow-x-hidden px-6 sm:px-10 h-0 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
           isKeyboardActive ? "pb-2" : (activeView === 'success' ? "pb-6 sm:pb-0" : "pb-6"),
-          activeView === 'success' ? "overflow-hidden flex flex-col animate-in fade-in zoom-in-95 duration-500" : "overflow-y-auto"
+          activeView === 'success' ? "overflow-y-auto flex flex-col animate-in fade-in zoom-in-95 duration-500" : "overflow-y-auto"
         )}>
         <div className={cn(
           "flex flex-col items-center min-h-full text-center transition-all duration-300",

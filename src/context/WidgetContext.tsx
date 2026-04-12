@@ -45,6 +45,10 @@ export const WidgetProvider: React.FC<WidgetProviderProps> = ({ children, extern
     branding: {
       ...clinicConfig.branding,
       ...(externalConfig?.branding || {})
+    },
+    texts: {
+      ...clinicConfig.texts,
+      ...(externalConfig?.texts || {})
     }
   };
 

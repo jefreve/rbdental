@@ -78,7 +78,6 @@ const mountWidget = () => {
     container.style.width = '100%';
     container.style.height = '100%';
     container.style.display = 'block';
-    container.style.overflow = 'auto'; // Abilitiamo lo scroll interno
 
     createRoot(container).render(
       <StrictMode>
@@ -122,20 +121,46 @@ const mountWidget = () => {
 
 const initWidget = () => {
   console.log('⏳ RB Widget: Inizializzazione in corso...');
-  const checkExist = setInterval(() => {
+  
+  let attempts = 0;
+  const maxAttempts = 50; // 5 secondi (100ms * 50)
+
+  const checkAndMount = setInterval(() => {
     const element = document.getElementById('rb-booking-widget-root');
-    if (element) {
-      clearInterval(checkExist);
+    const hasConfig = !!window.RB_WIDGET_CONFIG;
+    
+    attempts++;
+
+    // Se abbiamo l'elemento e abbiamo la config, montiamo subito
+    if (element && hasConfig) {
+      console.log('✨ RB Widget: Elemento e Configurazione trovati. Lancio!');
+      clearInterval(checkAndMount);
       mountWidget();
+      return;
+    }
+
+    // Se abbiamo l'elemento ma non la config, aspettiamo ancora un po'
+    if (element && !hasConfig && attempts < maxAttempts) {
+      if (attempts % 10 === 0) console.log('⏳ RB Widget: Root trovato, attendo caricamento configurazione...');
+      return;
+    }
+
+    // Se abbiamo l'elemento ma la config non arriva dopo il timeout, montiamo con default
+    if (element && !hasConfig && attempts >= maxAttempts) {
+      console.log('⚠️ RB Widget: Timeout configurazione. Procedo con i parametri default.');
+      clearInterval(checkAndMount);
+      mountWidget();
+      return;
+    }
+
+    // Se raggiungiamo il timeout totale senza neanche l'elemento, proviamo a montare in fondo al body
+    if (attempts >= maxAttempts) {
+      console.log('⚠️ RB Widget: Timeout elemento root. Provo il montaggio fallback.');
+      clearInterval(checkAndMount);
+      mountWidget();
+      return;
     }
   }, 100);
-
-  setTimeout(() => {
-    if (!document.getElementById('rb-booking-widget-root')) {
-      clearInterval(checkExist);
-      mountWidget();
-    }
-  }, 5000);
 };
 
 if (document.readyState === 'loading') {
