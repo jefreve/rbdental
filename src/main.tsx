@@ -20,8 +20,9 @@ const mountWidget = () => {
     const secondaryColor = container.getAttribute('data-secondary-color') || clinicConfig.branding.secondaryColor;
     const fontFamily = container.getAttribute('data-font-family') || clinicConfig.branding.fontFamily;
 
+    console.log('🎨 RB Widget Branding:', { primaryColor, secondaryColor, fontFamily });
+
     // 2. Applichiamo questi valori come Variabili CSS al contenitore
-    // Questo permetterà a tutto il widget di cambiare colore all'istante
     container.style.setProperty('--primary-color', primaryColor);
     container.style.setProperty('--font-family', fontFamily);
 

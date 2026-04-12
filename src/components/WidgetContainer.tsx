@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import { clinicConfig } from '../config/clinicConfig';
 import { createPortal } from 'react-dom';
 
 interface WidgetContainerProps {
@@ -24,7 +23,7 @@ import { cn } from '@/lib/utils';
 export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [shadowRoot, setShadowRoot] = useState<ShadowRoot | null>(null);
-  const { isExpanded, setIsExpanded, hideDefaultClose, isSuccessStep } = useWidget();
+  const { isExpanded, setIsExpanded, hideDefaultClose, isSuccessStep, config } = useWidget();
 
   // 1. ATTACH SHADOW DOM (Once)
   useLayoutEffect(() => {
@@ -45,7 +44,8 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
   useLayoutEffect(() => {
     if (!shadowRoot) return;
 
-    const { branding } = clinicConfig;
+    const { branding } = config;
+    console.log('🏗️ WidgetContainer applying branding:', branding);
     
     // Manage Font Injection
     const fontName = branding.fontFamily.split(',')[0].replace(/'/g, '');
@@ -182,7 +182,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         scrollbar-color: rgba(0, 0, 0, 0.08) transparent;
       }
     `;
-  }, [shadowRoot, clinicConfig.branding]);
+  }, [shadowRoot, config.branding]);
 
   const handleClose = () => {
     setIsExpanded(false);
