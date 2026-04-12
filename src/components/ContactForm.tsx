@@ -65,7 +65,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
         direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
       )}>
       <div className="mb-6 mt-4 text-center">
-        <h2 className="text-[20px] sm:text-[18px] font-bold font-heading">I tuoi dati</h2>
+        <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] font-heading">I tuoi dati</h2>
       </div>
 
       <form 
@@ -104,7 +104,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
         {/* Name and Surname Rows */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label htmlFor="firstName" className={cn("block text-[16px] font-semibold mb-2 transition-colors", showErrors && !isFirstNameValid && "text-destructive")}>
+            <label htmlFor="firstName" className={cn("block text-[length:var(--f-base)] font-[var(--f-w-title)] mb-2 transition-colors", showErrors && !isFirstNameValid && "text-destructive")}>
               Nome <span className={cn("text-primary transition-colors", showErrors && !isFirstNameValid && "text-destructive")}>*</span>
             </label>
             <input 
@@ -118,16 +118,16 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
               aria-invalid={showErrors && !isFirstNameValid}
               aria-describedby={showErrors && !isFirstNameValid ? "firstName-error" : undefined}
               className={cn(
-                "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[16px] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
+                "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[length:var(--f-base)] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
                 showErrors && !isFirstNameValid && "border-destructive ring-destructive/20 ring-1"
               )}
             />
             {showErrors && !isFirstNameValid && (
-              <p id="firstName-error" className="text-[10px] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Inserisci il nome</p>
+              <p id="firstName-error" className="text-[length:var(--f-small)] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Inserisci il nome</p>
             )}
           </div>
           <div>
-            <label htmlFor="lastName" className={cn("block text-[16px] font-semibold mb-2 transition-colors", showErrors && !isLastNameValid && "text-destructive")}>
+            <label htmlFor="lastName" className={cn("block text-[length:var(--f-base)] font-[var(--f-w-title)] mb-2 transition-colors", showErrors && !isLastNameValid && "text-destructive")}>
               Cognome <span className={cn("text-primary transition-colors", showErrors && !isLastNameValid && "text-destructive")}>*</span>
             </label>
             <input 
@@ -141,19 +141,19 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
               aria-invalid={showErrors && !isLastNameValid}
               aria-describedby={showErrors && !isLastNameValid ? "lastName-error" : undefined}
               className={cn(
-                "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[16px] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
+                "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[length:var(--f-base)] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
                 showErrors && !isLastNameValid && "border-destructive ring-destructive/20 ring-1"
               )}
             />
             {showErrors && !isLastNameValid && (
-              <p id="lastName-error" className="text-[10px] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Inserisci il cognome</p>
+              <p id="lastName-error" className="text-[length:var(--f-small)] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Inserisci il cognome</p>
             )}
           </div>
         </div>
         
         {/* Phone Input with Split Prefix and Visual Spacing */}
         <div>
-          <label htmlFor="phoneNumber" className={cn("block text-[16px] font-semibold mb-2 transition-colors", showErrors && !isPhoneValid && "text-destructive")}>
+          <label htmlFor="phoneNumber" className={cn("block text-[length:var(--f-base)] font-[var(--f-w-title)] mb-2 transition-colors", showErrors && !isPhoneValid && "text-destructive")}>
             Il tuo numero di telefono cellulare <span className={cn("text-primary transition-colors", showErrors && !isPhoneValid && "text-destructive")}>*</span>
           </label>
           <div className="grid grid-cols-[110px_1fr] gap-3 w-full">
@@ -185,19 +185,19 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
               aria-invalid={showErrors && !isPhoneValid}
               aria-describedby={showErrors && !isPhoneValid ? "phone-error" : undefined}
               className={cn(
-                "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[16px] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
+                "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[length:var(--f-base)] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
                 showErrors && !isPhoneValid && "border-destructive ring-destructive/20 ring-1"
               )}
             />
           </div>
           {showErrors && !isPhoneValid && (
-            <p id="phone-error" className="text-[10px] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Numero di telefono non valido</p>
+            <p id="phone-error" className="text-[length:var(--f-small)] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Numero di telefono non valido</p>
           )}
         </div>
 
         {/* Email Input */}
         <div>
-          <label htmlFor="email" className={cn("block text-[16px] font-semibold mb-2 transition-colors", showErrors && !isEmailValid && "text-destructive")}>
+          <label htmlFor="email" className={cn("block text-[length:var(--f-base)] font-[var(--f-w-title)] mb-2 transition-colors", showErrors && !isEmailValid && "text-destructive")}>
             Indirizzo email <span className={cn("text-primary transition-colors", showErrors && !isEmailValid && "text-destructive")}>*</span>
           </label>
           <input 
@@ -211,12 +211,12 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
             aria-invalid={showErrors && !isEmailValid}
             aria-describedby={showErrors && !isEmailValid ? "email-error" : undefined}
             className={cn(
-              "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[16px] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
+              "w-full h-12 rounded-full border border-input bg-transparent px-4 py-2 text-[length:var(--f-base)] shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary transition-all",
               showErrors && !isEmailValid && "border-destructive ring-destructive/20 ring-1"
             )}
           />
           {showErrors && !isEmailValid && (
-            <p id="email-error" className="text-[10px] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Inserisci un'email valida</p>
+            <p id="email-error" className="text-[length:var(--f-small)] text-destructive mt-1 ml-2 animate-in fade-in slide-in-from-top-1">Inserisci un'email valida</p>
           )}
         </div>
 
@@ -231,7 +231,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
 
         {/* Additional Notes */}
         <div>
-          <label htmlFor="notes" className="block text-[16px] font-semibold mb-2">
+          <label htmlFor="notes" className="block text-[length:var(--f-base)] font-[var(--f-w-title)] mb-2">
             Informazioni aggiuntive
           </label>
           <textarea 
@@ -240,7 +240,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
             rows={2}
             value={notes}
             onChange={(e) => { setNotes(e.target.value); updateField('notes', e.target.value); }}
-            className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-[18px] sm:text-[16px] shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-none"
+            className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-[length:var(--f-base)] shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring resize-none"
           />
         </div>
 
@@ -271,7 +271,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
                 className="absolute inset-0 opacity-0 cursor-pointer"
               />
             </label>
-            <div className="text-[16px] sm:text-[14px] text-muted-foreground leading-relaxed">
+            <div className="text-[length:var(--f-base)] font-[var(--f-w-base)] text-muted-foreground leading-relaxed">
               <span className={cn(showErrors && !isPrivacyValid && "text-destructive font-medium")}>
                 Prenotando l'appuntamento, accetti i nostri{' '}
                 <a 
@@ -300,7 +300,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
         <Button 
           type="submit" 
           className={cn(
-            "w-full h-12 text-[18px] sm:text-[16px] font-semibold text-white transition-all",
+            "w-full h-12 text-[length:var(--f-button)] font-[var(--f-w-title)] text-white transition-all",
             showErrors && !isFormValid && "opacity-80 grayscale-[20%]"
           )}
         >

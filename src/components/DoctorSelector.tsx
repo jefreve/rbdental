@@ -33,8 +33,8 @@ export function DoctorSelector({ onSelect, direction = 'forward', doctors }: Doc
       direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
     )}>
       <div className="mb-6 text-center px-1">
-        <h2 className="text-[20px] sm:text-[18px] font-bold font-heading">Scegli il tuo dentista</h2>
-        <p className="text-[16px] sm:text-[14px] text-muted-foreground whitespace-normal">
+        <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] font-heading">Scegli il tuo dentista</h2>
+        <p className="text-[length:var(--f-base)] font-[var(--f-w-base)] text-muted-foreground whitespace-normal">
           Opzioni disponibili in base a servizio e data scelti
         </p>
       </div>
@@ -63,10 +63,10 @@ export function DoctorSelector({ onSelect, direction = 'forward', doctors }: Doc
                 {doc.avatar}
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-[18px] sm:text-[16px] group-hover:text-primary transition-colors">
+                <h3 className="font-[var(--f-w-title)] text-[length:var(--f-button)] group-hover:text-primary transition-colors">
                   {doc.name}
                 </h3>
-                <p className="text-[16px] sm:text-[14px] text-muted-foreground">
+                <p className="text-[length:var(--f-base)] font-[var(--f-w-base)] text-muted-foreground">
                   {doc.role}
                 </p>
               </div>

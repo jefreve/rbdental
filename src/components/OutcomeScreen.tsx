@@ -35,7 +35,7 @@ export function OutcomeScreen({
       "w-full mx-auto animate-in fade-in duration-700 flex flex-col items-center text-center justify-start pt-4 pb-10 sm:pb-0",
       direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
     )}>
-      <h2 className="text-[20px] sm:text-[18px] font-bold mb-3 font-heading flex items-center justify-center gap-2">
+      <h2 className="text-[length:var(--f-title)] font-bold mb-3 font-heading flex items-center justify-center gap-2">
         {isSuccess ? (
           <>
             <CheckCircle className="w-7 h-7 text-green-500 animate-bounce-short-once shrink-0" />
@@ -49,7 +49,7 @@ export function OutcomeScreen({
         )}
       </h2>
       
-      <p className="text-muted-foreground text-base sm:text-sm mb-6 px-0 sm:px-4">
+      <p className="text-muted-foreground text-[length:var(--f-base)] mb-6 px-0 sm:px-4">
         {isSuccess 
           ? "Riceverai un'email di conferma a breve."
           : (typeof errorMessage === 'string' && errorMessage.includes("Torna al calendario") ? (
@@ -76,8 +76,8 @@ export function OutcomeScreen({
             <CheckCircle className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-[12px] sm:text-[14px] uppercase tracking-wider text-muted-foreground font-bold leading-none mb-1">Servizio</p>
-            <p className="font-semibold text-[16px] sm:text-[14px]">{booking.treatmentName}</p>
+            <p className="text-[length:var(--f-heading)] uppercase tracking-wider text-muted-foreground font-bold leading-none mb-1">Servizio</p>
+            <p className="font-semibold text-[length:var(--f-base)]">{booking.treatmentName}</p>
           </div>
         </div>
 
@@ -86,8 +86,8 @@ export function OutcomeScreen({
             <Calendar className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-[12px] sm:text-[14px] uppercase tracking-wider text-muted-foreground font-bold leading-none mb-1">Data e Ora</p>
-            <p className="font-semibold text-[16px] sm:text-[14px]">{booking.dateTime}</p>
+            <p className="text-[length:var(--f-heading)] uppercase tracking-wider text-muted-foreground font-bold leading-none mb-1">Data e Ora</p>
+            <p className="font-semibold text-[length:var(--f-base)]">{booking.dateTime}</p>
           </div>
         </div>
 
@@ -96,8 +96,8 @@ export function OutcomeScreen({
             <User className="w-4 h-4" />
           </div>
           <div>
-            <p className="text-[12px] sm:text-[14px] uppercase tracking-wider text-muted-foreground font-bold leading-none mb-1">Dottore</p>
-            <p className="font-semibold text-[16px] sm:text-[14px]">{booking.doctorName}</p>
+            <p className="text-[length:var(--f-heading)] uppercase tracking-wider text-muted-foreground font-bold leading-none mb-1">Dottore</p>
+            <p className="font-semibold text-[length:var(--f-base)]">{booking.doctorName}</p>
           </div>
         </div>
       </div>
@@ -106,14 +106,14 @@ export function OutcomeScreen({
       <div className="w-full pt-0 space-y-4">
         {isSuccess ? (
           <>
-            <p className="text-[15px] sm:text-sm text-balance mb-4 leading-snug">
+            <p className="text-[length:var(--f-base)] text-balance mb-4 leading-snug">
               Accedi alla <a href="/dashboard.html" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold">dashboard</a> del tuo <strong>Account Paziente</strong> gratuito per gestire questa e altre prenotazioni.
             </p>
             
             <div className="flex flex-row gap-3 w-full">
               <Button 
                 asChild
-                className="flex-1 h-12 rounded-full font-bold text-[16px] sm:text-sm shadow-sm text-white px-2"
+                className="flex-1 h-12 rounded-full font-bold text-[length:var(--f-button)] shadow-sm text-white px-2"
               >
                 <a href="/dashboard.html" target="_blank" rel="noopener noreferrer">
                   Dashboard
@@ -121,7 +121,7 @@ export function OutcomeScreen({
               </Button>
               <Button 
                 variant="outline" 
-                className="flex-1 h-12 rounded-full text-[16px] sm:text-sm font-bold border-primary/20 hover:bg-primary/5 hover:text-primary transition-all shadow-sm px-2"
+                className="flex-1 h-12 rounded-full text-[length:var(--f-button)] font-bold border-primary/20 hover:bg-primary/5 hover:text-primary transition-all shadow-sm px-2"
                 onClick={() => onReset('treatment')}
               >
                 Prenota di nuovo
@@ -132,7 +132,7 @@ export function OutcomeScreen({
           <>
             <div className="flex flex-col gap-3 w-full">
               <Button 
-                className="w-full h-14 rounded-full font-bold text-[16px] sm:text-[14px] shadow-lg flex items-center justify-center gap-2 text-white bg-primary hover:bg-primary/95 hover:scale-[1.03] hover:shadow-xl active:scale-[0.97] transition-all duration-300"
+                className="w-full h-14 rounded-full font-bold text-[length:var(--f-button)] shadow-lg flex items-center justify-center gap-2 text-white bg-primary hover:bg-primary/95 hover:scale-[1.03] hover:shadow-xl active:scale-[0.97] transition-all duration-300"
                 onClick={() => onReset(retryStep)}
               >
                 <RefreshCcw className="w-5 h-5" />

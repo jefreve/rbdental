@@ -70,16 +70,16 @@ export function BookingFooter({ treatmentName, dateTime, doctorName, patientName
         {confirmingEdit ? (
           <div className="flex items-center justify-between animate-in fade-in zoom-in-95 duration-200 px-1 w-full overflow-hidden">
             <div className="flex-1 min-w-0 pr-4">
-              <p className="text-[14.5px] font-bold text-foreground leading-tight truncate">
+              <p className="text-[length:var(--f-base)] font-bold text-foreground leading-tight truncate">
                 {getStepQuestion(confirmingEdit.id)}
               </p>
               {(confirmingEdit.id === 'treatment' || confirmingEdit.id === 'datetime') && (
                 <>
-                  <p className="text-[12px] text-muted-foreground leading-tight truncate mt-1">
+                  <p className="text-[length:var(--f-small)] text-muted-foreground leading-tight truncate mt-1">
                     Gli step successivi verranno resettati
                   </p>
                   {patientName && (
-                    <p className="text-[11px] text-primary/70 font-semibold leading-tight truncate mt-0.5">
+                    <p className="text-[length:var(--f-small)] text-primary/70 font-semibold leading-tight truncate mt-0.5">
                       (eccetto i tuoi dati)
                     </p>
                   )}
@@ -178,7 +178,7 @@ export function BookingFooter({ treatmentName, dateTime, doctorName, patientName
                     )}
                   >
                     <CheckCircle2 className={cn("w-3.5 h-3.5", isActive ? "text-white" : "text-primary")} />
-                    <span className={cn("text-[13px] sm:text-[14px] font-bold tracking-tight", isActive ? "text-white" : "text-foreground/80")}>
+                    <span className={cn("text-[length:var(--f-base)] font-bold tracking-tight", isActive ? "text-white" : "text-foreground/80")}>
                       {chip.label || ""}
                     </span>
                     {!isActive && (

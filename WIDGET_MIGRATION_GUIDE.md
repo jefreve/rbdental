@@ -48,6 +48,15 @@ window.RB_WIDGET_CONFIG = {
       success: false,    // Prevents unnecessary bounce on confirmation
       contact: true      // Ensures long forms are scrollable
     }
+  },
+  branding: {
+    typography: {
+      baseSize: '14px',     // Default body text
+      titleSize: '20px',    // Main step titles
+      buttonSize: '16px',   // Buttons and clickable list items
+      headingSize: '13px',  // Small uppercase headers
+      smallSize: '11px'     // Tiny details and error messages
+    }
   }
 };
 ```
@@ -61,6 +70,7 @@ Useful for quick adjustments or non-developer environments.
 | `data-font-family` | Widget typography | `'Outfit', sans-serif` |
 | `data-show-logo` | Toggle footer logo (`true`/`false`) | `true` |
 | `data-logo-url` | Path for the clinic logo | `/img/logo.png` |
+| `data-typography-base` | Base font size | `14px` |
 
 ## 5. Layout & Scrolling Control
 The widget allows granular control over vertical scrolling for each step. This is critical when the host site container is very tall or very small.
@@ -68,8 +78,17 @@ The widget allows granular control over vertical scrolling for each step. This i
 - **Scenario: Tall Container (>700px):** Disable scroll for "home" and "success" to create a premium, non-bouncing app-like feel.
 - **Scenario: Small Container (<500px):** Keep all steps scrollable (`true`) to ensure buttons at the bottom are reachable.
 
+## 6. Typography System
+The widget uses CSS variables (`--f-base`, `--f-title`, etc.) for all text elements. This ensures perfect alignment with the host site's visual identity.
+
+- **`baseSize`**: Standard information and labels.
+- **`titleSize`**: H1/H2 headings at the top of each view.
+- **`buttonSize`**: Main action buttons and interactive service names.
+- **`headingSize`**: Small, bold, uppercase section labels.
+- **`smallSize`**: Disclaimer texts, errors, and footnotes.
+
 ---
 *Priority: Global JS Object > Data Attributes > Default Config*
 
 ---
-*Last updated: 2026-04-12 (implemented scrollableSteps logic)*
+*Last updated: 2026-04-12 (implemented configurable typography)*

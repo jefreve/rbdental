@@ -94,9 +94,9 @@ export function DateTimeSelector({ onSelect, serviceDuration = "30 min", directi
       direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
     )}>
       <div className="flex items-center justify-center shrink-0 px-2 pt-10 pb-4">
-        <h2 className="text-[20px] sm:text-[18px] font-bold flex items-center gap-3 font-heading">
+        <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] flex items-center gap-3 font-heading">
           Scegli data e orario
-          <span className="text-[14px] sm:text-[12px] font-black bg-primary/10 text-primary px-2 py-0.5 rounded-full uppercase tracking-widest border border-primary/20">
+          <span className="text-[length:var(--f-small)] font-[var(--f-w-title)] bg-primary/10 text-primary px-2 py-0.5 rounded-full uppercase tracking-widest border border-primary/20">
             {serviceDuration}
           </span>
         </h2>
@@ -125,8 +125,8 @@ export function DateTimeSelector({ onSelect, serviceDuration = "30 min", directi
           <div className="flex flex-1 items-stretch gap-1.5 sm:gap-2 min-w-0">
             {currentDays.map((day) => (
               <div key={day.id} className="flex-1 min-w-0 flex flex-col items-center justify-center py-3">
-                <span className="text-[13px] sm:text-[12px] font-bold text-muted-foreground/60 leading-tight uppercase tracking-wider truncate w-full text-center">{day.label}</span>
-                <span className="text-[15px] sm:text-[15px] font-black text-foreground mt-1 whitespace-nowrap tracking-tighter truncate w-full text-center">{day.date}</span>
+                <span className="text-[length:var(--f-small)] font-[var(--f-w-title)] text-muted-foreground/60 leading-tight uppercase tracking-wider truncate w-full text-center">{day.label}</span>
+                <span className="text-[length:var(--f-base)] font-[var(--f-w-title)] text-foreground mt-1 whitespace-nowrap tracking-tighter truncate w-full text-center">{day.date}</span>
               </div>
             ))}
           </div>
@@ -175,7 +175,7 @@ export function DateTimeSelector({ onSelect, serviceDuration = "30 min", directi
                           disabled={!isAvailable}
                           aria-label={isAvailable ? `${day.label} ${day.date} alle ore ${time}` : undefined}
                           className={cn(
-                            "w-full max-w-[84px] mx-auto py-2 px-0 rounded-md transition-all font-bold sm:font-medium text-[13px] sm:text-[14px] tracking-tighter flex items-center justify-center h-12",
+                            "w-full max-w-[84px] mx-auto py-2 px-0 rounded-md transition-all font-[var(--f-w-title)] text-[length:var(--f-button)] tracking-tighter flex items-center justify-center h-12",
                             isAvailable 
                               ? "bg-transparent text-primary border border-primary/20 shadow-sm hover:bg-primary/5 active:scale-95" 
                               : "bg-transparent text-muted-foreground/20 cursor-not-allowed opacity-40 shadow-none"

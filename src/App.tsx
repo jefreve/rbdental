@@ -8,7 +8,7 @@ import { ContactForm } from "./components/ContactForm"
 import { OutcomeScreen } from "./components/OutcomeScreen"
 import { BookingFooter } from "./components/BookingFooter"
 import { SlotTimer } from "./components/SlotTimer"
-import { ArrowLeft, Info, Clock, AlertTriangle } from "lucide-react"
+import { ArrowLeft, ArrowRight, Info, Clock, AlertTriangle } from "lucide-react"
 import { Toaster } from "./components/ui/toaster"
 
 type BookingState = {
@@ -283,27 +283,49 @@ function App() {
       {/* Branded Header Area - Hidden on Success for full-screen feel */}
       {activeView !== 'success' && (
         <header className={cn(
-          "w-full h-16 shrink-0 flex items-center px-4 relative z-50 bg-primary shadow-lg transition-all duration-300",
-          isKeyboardActive && "h-12"
+          "w-full shrink-0 flex flex-col items-center justify-center px-4 relative z-50 transition-all duration-300",
+          config.layout?.headerStyle === 'minimal' 
+            ? "bg-transparent h-auto pt-8 pb-4" 
+            : (isKeyboardActive ? "bg-primary h-12 shadow-lg" : "bg-primary h-16 shadow-lg shadow-primary/10")
         )}>
           {activeView !== 'home' && (
-            <div className="absolute left-2 h-full flex items-center">
+            <div className={cn(
+              "absolute left-4 h-full flex items-center",
+              config.layout?.headerStyle === 'minimal' && "top-8 h-10"
+            )}>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={handleBack}
                 aria-label="Torna indietro"
-                className="rounded-full h-8 w-8 bg-white/15 backdrop-blur-[4px] hover:bg-white/25 text-white shrink-0 transition-all active:scale-95 p-0 flex items-center justify-center border-none"
+                className={cn(
+                  "rounded-full h-8 w-8 transition-all active:scale-95 p-0 flex items-center justify-center border-none",
+                  config.layout?.headerStyle === 'minimal'
+                    ? "bg-primary/10 text-primary hover:bg-primary/20"
+                    : "bg-white/15 backdrop-blur-[4px] hover:bg-white/25 text-white"
+                )}
               >
                 <ArrowLeft className="w-5 h-5 stroke-[3px]" />
               </Button>
             </div>
           )}
-          <div className="flex-1 text-center">
-            <h1 className="text-[20px] sm:text-[18px] font-semibold text-white tracking-tight flex items-center justify-center gap-1.5 px-10 transitions-all duration-300">
+          <div className="flex flex-col items-center text-center max-w-full px-10">
+            <h1 className={cn(
+              "transitions-all duration-300 flex items-center justify-center gap-1.5",
+              "text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)]",
+              config.layout?.headerStyle === 'minimal' ? "text-foreground" : "text-white"
+            )}>
               <span className="truncate">{config.texts?.welcomeTitle || "Prenota una visita in pochi"}</span>
-              <Clock className="w-5 h-5 sm:w-5 sm:h-5 shrink-0 mb-0.5" />
+              {config.layout?.headerStyle !== 'minimal' && <Clock className="w-5 h-5 shrink-0 mb-0.5" />}
             </h1>
+            {config.texts?.welcomeSubtitle && activeView === 'home' && (
+              <p className={cn(
+                "text-[length:var(--f-base)] font-[var(--f-w-base)] mt-1.5 transition-all opacity-80 max-w-[280px] sm:max-w-md",
+                config.layout?.headerStyle === 'minimal' ? "text-muted-foreground" : "text-white/80"
+              )}>
+                {config.texts.welcomeSubtitle}
+              </p>
+            )}
           </div>
         </header>
       )}
@@ -320,8 +342,8 @@ function App() {
               <AlertTriangle className="w-6 h-6 text-destructive" />
             </div>
             <div>
-              <p className="font-bold text-[16px] text-foreground">Slot non più disponibile</p>
-              <p className="text-[13px] text-muted-foreground mt-1 leading-relaxed">Spiacenti, lo slot è stato prenotato da un altro paziente</p>
+              <p className="font-bold text-[length:var(--f-button)] text-foreground">Slot non più disponibile</p>
+              <p className="text-[length:var(--f-base)] text-muted-foreground mt-1 leading-relaxed">Spiacenti, lo slot è stato prenotato da un altro paziente</p>
             </div>
             <Button
               className="w-full"
@@ -337,11 +359,11 @@ function App() {
         <div className="mx-6 sm:mx-10 mt-4 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
           <Clock className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
           <div className="text-left">
-            <p className="text-[14px] font-bold text-amber-700 leading-tight">Sessione Scaduta</p>
-            <p className="text-[12px] text-amber-700/80 mt-1">Lo slot non è più riservato. Puoi comunque procedere, ma la disponibilità verrà ricontrollata alla fine.</p>
+            <p className="text-[length:var(--f-base)] font-bold text-amber-700 leading-tight">Sessione Scaduta</p>
+            <p className="text-[length:var(--f-small)] text-amber-700/80 mt-1">Lo slot non è più riservato. Puoi comunque procedere, ma la disponibilità verrà ricontrollata alla fine.</p>
             <button 
               onClick={() => setShowExpiredBanner(false)}
-              className="text-[12px] font-bold underline mt-2 text-amber-700"
+              className="text-[length:var(--f-small)] font-bold underline mt-2 text-amber-700"
             >
               Ho capito
             </button>
@@ -363,9 +385,12 @@ function App() {
         <div className={cn(
           "w-full text-center transition-all duration-300",
           (activeView === 'success' || activeView === 'home')
-            ? "pt-8 pb-12 block"
-            : (isKeyboardActive ? "flex flex-col items-center min-h-full justify-start pb-4" : "flex flex-col items-center min-h-full justify-center pb-10")
-        )}>
+            ? "pb-12 block"
+            : (isKeyboardActive ? "flex flex-col items-center min-h-full justify-start pb-4" : "flex flex-col items-center min-h-full justify-center pb-10"),
+          activeView === 'home' && (config.layout?.headerStyle === 'minimal' ? "pt-4" : "pt-8")
+        )}
+        style={{ gap: 'var(--v-gap)' }}
+        >
           {activeView === 'home' && (
             <div className={cn(
               "flex flex-col items-center gap-4 w-full animate-in fade-in duration-700",
@@ -387,11 +412,16 @@ function App() {
                     }
                     setIsExpanded(true);
                   }}
-                  className="w-full sm:w-80 h-14 text-[18px] sm:text-[16px] font-semibold text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  style={{ width: config.layout?.buttonWidth || 'auto' }}
+                  className={cn(
+                    "h-14 text-[length:var(--f-button)] font-[var(--f-w-title)] text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2",
+                    (!config.layout?.buttonWidth || config.layout.buttonWidth === 'auto') ? "w-full sm:w-80" : ""
+                  )}
                 >
                   {(step === 'home' || step === 'success') 
                     ? (config.texts?.mainButton || 'Prenota') 
                     : 'Continua Prenotazione'}
+                  {config.layout?.showButtonIcon && <ArrowRight className="w-5 h-5 ml-1" />}
                 </Button>
                 <div className="h-10 w-10 shrink-0 hidden sm:block opacity-0" aria-hidden="true" />
               </div>
@@ -404,7 +434,7 @@ function App() {
                     variant="outline"
                     size="lg"
                     asChild
-                    className="w-full sm:w-80 h-14 text-[16px] sm:text-[14px] font-bold border-primary/20 hover:bg-primary/5 hover:text-primary transition-all shadow-sm"
+                    className="w-full sm:w-80 h-14 text-[length:var(--f-base)] font-bold border-primary/20 hover:bg-primary/5 hover:text-primary transition-all shadow-sm"
                   >
                     <a href="/dashboard.html" target="_blank" rel="noopener noreferrer">
                       {hasVisitedBefore ? "Dashboard" : "Dashboard Prenotazioni Digitali"}
@@ -430,7 +460,7 @@ function App() {
                   {/* Tooltip content positioned relatively to the info icon */}
                   <div className="relative w-full flex justify-center h-0 overflow-visible pt-1">
                     <p className={cn(
-                      "absolute top-0 w-[260px] text-[15px] sm:text-[13px] text-muted-foreground leading-relaxed italic transition-all duration-300 transform bg-background/95 backdrop-blur-sm p-3 rounded-xl border border-border/50 shadow-2xl z-20 pointer-events-none",
+                      "absolute top-0 w-[260px] text-[length:var(--f-base)] text-muted-foreground leading-relaxed italic transition-all duration-300 transform bg-background/95 backdrop-blur-sm p-3 rounded-xl border border-border/50 shadow-2xl z-20 pointer-events-none",
                       showDashboardNote
                         ? "opacity-100 translate-y-0 visible"
                         : "opacity-0 -translate-y-1 invisible sm:group-hover/info:opacity-100 sm:group-hover/info:translate-y-0 sm:group-hover/info:visible"

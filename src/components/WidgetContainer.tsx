@@ -75,6 +75,18 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         --radius: ${branding.borderRadius} !important;
         --background: 0 0% 100% !important;
         --foreground: 222.2 84% 4.9% !important;
+        
+        --f-base: ${branding.typography?.baseSize || '14px'} !important;
+        --f-title: ${branding.typography?.titleSize || '18px'} !important;
+        --f-heading: ${branding.typography?.headingSize || '13px'} !important;
+        --f-button: ${branding.typography?.buttonSize || '16px'} !important;
+        --f-small: ${branding.typography?.smallSize || '12px'} !important;
+        
+        --f-ls-title: ${branding.typography?.titleLetterSpacing || 'normal'} !important;
+        --f-w-title: ${branding.typography?.titleWeight || '700'} !important;
+        --f-w-base: ${branding.typography?.baseWeight || '400'} !important;
+        --v-gap: ${config.layout?.verticalGap || '1rem'} !important;
+
         display: block;
         font-family: ${branding.fontFamily};
       }

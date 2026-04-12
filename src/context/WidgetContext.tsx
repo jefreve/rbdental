@@ -22,9 +22,34 @@ export interface ExternalConfig {
     borderRadius?: string;
     showLogo?: boolean;
     logoUrl?: string;
+    typography?: {
+      baseSize?: string;
+      titleSize?: string;
+      headingSize?: string;
+      buttonSize?: string;
+      smallSize?: string;
+      titleLetterSpacing?: string;
+      titleWeight?: string;
+      baseWeight?: string;
+    };
+    headerStyle?: 'solid' | 'minimal';
+    verticalGap?: string;
+    buttonWidth?: string;
+    showButtonIcon?: boolean;
+  };
+  layout?: {
+    scrollableSteps?: {
+      home?: boolean;
+      treatment?: boolean;
+      datetime?: boolean;
+      doctor?: boolean;
+      contact?: boolean;
+      success?: boolean;
+    };
   };
   texts?: {
     welcomeTitle?: string;
+    welcomeSubtitle?: string;
     mainButton?: string;
   }
 }
@@ -44,7 +69,19 @@ export const WidgetProvider: React.FC<WidgetProviderProps> = ({ children, extern
     ...clinicConfig,
     branding: {
       ...clinicConfig.branding,
-      ...(externalConfig?.branding || {})
+      ...(externalConfig?.branding || {}),
+      typography: {
+        ...clinicConfig.branding.typography,
+        ...(externalConfig?.branding?.typography || {})
+      }
+    },
+    layout: {
+      ...clinicConfig.layout,
+      ...(externalConfig?.layout || {}),
+      scrollableSteps: {
+        ...clinicConfig.layout.scrollableSteps,
+        ...(externalConfig?.layout?.scrollableSteps || {})
+      }
     },
     texts: {
       ...clinicConfig.texts,

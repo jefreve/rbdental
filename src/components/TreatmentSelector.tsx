@@ -30,7 +30,7 @@ export function TreatmentSelector({ onSelect, direction = 'forward' }: Treatment
       "w-full max-w-md mx-auto animate-in fade-in duration-700",
       direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
     )}>
-      <h2 className="text-[20px] sm:text-[18px] font-bold mb-6 mt-4 text-center px-1 font-heading">Scegli un servizio</h2>
+      <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] mb-6 mt-4 text-center px-1 font-heading">Scegli un servizio</h2>
 
       <div className="space-y-3 text-left">
         {isLoading ? (
@@ -56,14 +56,14 @@ export function TreatmentSelector({ onSelect, direction = 'forward' }: Treatment
               className="w-full p-4 rounded-xl border border-muted-foreground/20 hover:border-primary hover:shadow-md transition-all text-left group bg-card"
             >
               <div className="flex justify-between items-start mb-1">
-                <h3 className="font-semibold text-[18px] sm:text-[16px] group-hover:text-primary transition-colors">
+                <h3 className="font-[var(--f-w-title)] text-[length:var(--f-button)] group-hover:text-primary transition-colors">
                   {treatment.name}
                 </h3>
                 <span className="text-xs font-medium bg-muted px-2 py-1 rounded-md text-muted-foreground">
                   {treatment.duration}
                 </span>
               </div>
-              <p className="text-[16px] sm:text-[14px] text-muted-foreground leading-snug">
+              <p className="text-[length:var(--f-base)] font-[var(--f-w-base)] text-muted-foreground leading-snug">
                 {treatment.description}
               </p>
             </button>

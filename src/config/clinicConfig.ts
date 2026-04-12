@@ -1,13 +1,4 @@
-/**
- * CENTRAL BRANDING ENGINE - Configuration Source of Truth
- *
- * Changing these values affects the entire widget (including Shadow DOM isolation)
- * and all the white-label dashboards (Patient, Staff, Admin).
- */
-
 export interface ClinicConfig {
-  name: string;
-  mockMode: boolean;
   branding: {
     primaryColor: string;
     secondaryColor: string;
@@ -17,57 +8,76 @@ export interface ClinicConfig {
     preset: 'Modern' | 'Classic' | 'Minimal';
     showLogo?: boolean;
     logoUrl?: string;
+    typography?: {
+      baseSize?: string;        // Default: 14px
+      titleSize?: string;       // Default: 18px (titles)
+      headingSize?: string;     // Default: 13px (uppercase headers)
+      buttonSize?: string;      // Default: 16px
+      smallSize?: string;       // Default: 12px
+      titleLetterSpacing?: string; // Default: normal
+      titleWeight?: string;        // Default: 700
+      baseWeight?: string;         // Default: 400
+    };
+  };
+  layout: {
+    scrollableSteps: {
+      home: boolean;
+      treatment: boolean;
+      datetime: boolean;
+      doctor: boolean;
+      contact: boolean;
+      success: boolean;
+    };
+    headerStyle?: 'solid' | 'minimal'; // solid = colored background, minimal = clean white
+    verticalGap?: string;              // Space between elements (e.g. '1.5rem')
+    buttonWidth?: string;              // Custom button width (e.g. '100%' or '240px')
+    showButtonIcon?: boolean;          // Show arrow icon in primary buttons
   };
   insurances?: string[];
   texts?: {
     welcomeTitle?: string;
+    welcomeSubtitle?: string;
     mainButton?: string;
     widgetTitle?: string;
-  };
-  layout?: {
-    scrollableSteps?: {
-      home?: boolean;
-      treatment?: boolean;
-      datetime?: boolean;
-      doctor?: boolean;
-      contact?: boolean;
-      success?: boolean;
-    };
   };
 }
 
 export const clinicConfig: ClinicConfig = {
-  name: "R.B. Dental", 
-  mockMode: true, 
-
+  branding: {
+    primaryColor: "#005b88", // Colore principale: utilizzato per pulsanti primari, icone attive e elementi chiave
+    secondaryColor: "#F1F5F9", // Colore secondario: perfetto per sfondi di contrasto, hover e card
+    accentColor: "#F43F5E", // Colore accento: ideale per badge, puntini di notifica o elementi highlight
+    fontFamily: "'Outfit', sans-serif", // Font di sistema o Google Fonts: cambia l'intera tipografia del widget
+    borderRadius: "1.5rem", // Arrotondamento angoli: da 0rem (vivi) a 1rem+ (molto rotondi/bolla)
+    preset: "Modern", // Preset di stile: "Modern" (soft gradients), "Classic" (serio), "Minimal" (flat design)
+    typography: {
+      baseSize: "14px",
+      titleSize: "18px",
+      headingSize: "13px",
+      buttonSize: "16px",
+      smallSize: "12px",
+      titleLetterSpacing: "normal",
+      titleWeight: "700",
+      baseWeight: "400"
+    }
+  },
   layout: {
     scrollableSteps: {
-      home: false,      // Ottimo per presentazioni fisse in container alti
+      home: false,
       treatment: true,
       datetime: true,
       doctor: true,
       contact: true,
-      success: false    // Evita scroll accidentali se il widget è alto
-    }
+      success: false
+    },
+    headerStyle: "solid",
+    verticalGap: "1rem",
+    buttonWidth: "100%",
+    showButtonIcon: false
   },
-  insurances: [
-    "Previmedical",
-    "Metasalute",
-    "Unisalute",
-    "Pronto care",
-    "Fasdac",
-    "Fisde",
-    "Assilt",
-    "Blue Assistance",
-    "Salute-odontonetwork-poste assicura"
-  ],
-
-  branding: {
-    primaryColor: "#006E93", // Colore principale ufficiale R.B. Dental
-    secondaryColor: "#F8FAFC", // Colore secondario: usato per sfondi di card o elementi meno importanti
-    accentColor: "#F43F5E", // Colore accento: ideale per badge, puntini di notifica o elementi highlight
-    fontFamily: "'Outfit', sans-serif", // Font di sistema o Google Fonts: cambia l'intera tipografia del widget
-    borderRadius: "1.5rem", // Arrotondamento angoli: da 0rem (vivi) a 1rem+ (molto rotondi/bolla)
-    preset: "Modern" // Preset di stile: "Modern" (soft gradients), "Classic" (serio), "Minimal" (flat design)
+  texts: {
+    welcomeTitle: "Prenota il tuo splendido sorriso",
+    welcomeSubtitle: "Siamo qui per aiutarti a trovare l'orario perfetto",
+    mainButton: "Prenota"
   }
 };
