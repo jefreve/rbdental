@@ -87,8 +87,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         width: 100%;
         height: 100%;
         max-width: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
+        overflow: hidden;
         border-radius: var(--radius);
         position: relative;
         scrollbar-width: thin;
