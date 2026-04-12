@@ -61,9 +61,22 @@ const mountWidget = () => {
                     container.getAttribute('data-logo-url') || 
                     clinicConfig.branding.logoUrl || '';
 
-    console.log('🎨 RB Widget Branding Applied:', { primaryColor, secondaryColor, fontFamily, borderRadius, showLogo, logoUrl });
+    // 2. Debug Dimensioni (Scroll Analysis)
+    const rect = container.getBoundingClientRect();
+    const computedStyle = window.getComputedStyle(container);
+    console.log('📏 RB Widget Dimensions:', { 
+      width: rect.width, 
+      height: rect.height, 
+      display: computedStyle.display,
+      position: computedStyle.position,
+      overflow: computedStyle.overflow
+    });
 
-    // 2. Applichiamo Variabili CSS
+    if (rect.height === 0) {
+      console.warn('⚠️ RB Widget Warning: Il contenitore ha altezza 0px. Lo scroll interno non funzionerà finché il contenitore padre non ha un\'altezza definita.');
+    }
+
+    // 3. Applichiamo Variabili CSS
     container.style.setProperty('--primary-color', primaryColor);
     container.style.setProperty('--font-family', fontFamily);
     container.style.setProperty('--border-radius', borderRadius);
