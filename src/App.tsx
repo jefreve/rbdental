@@ -82,17 +82,6 @@ function App() {
   const [slotTakenByOther, setSlotTakenByOther] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to top on step change
-  useEffect(() => {
-    // We target the closest scrollable container (the viewport in Shadow DOM)
-    const viewport = scrollContainerRef.current?.closest('.widget-viewport');
-    if (viewport) {
-      viewport.scrollTo(0, 0);
-    } else if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo(0, 0);
-    }
-  }, [step]);
-
   // Persistence effects
   useEffect(() => {
     localStorage.setItem('booking_step', step);
@@ -254,6 +243,29 @@ function App() {
   useEffect(() => {
     setIsSuccessStep(activeView === 'success');
   }, [activeView, setIsSuccessStep]);
+
+  // Auto-scroll to top on step or view change
+  useEffect(() => {
+    const resetScroll = () => {
+      // 1. Target local main
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+      }
+      
+      // 2. Target shadow viewport (the real scrollable parent)
+      const viewport = scrollContainerRef.current?.closest('.widget-viewport');
+      if (viewport) {
+        viewport.scrollTop = 0;
+      }
+    };
+
+    // Execute immediately
+    resetScroll();
+    
+    // Safety timeout for dynamic content rendering
+    const timer = setTimeout(resetScroll, 50);
+    return () => clearTimeout(timer);
+  }, [step, activeView]);
 
   useEffect(() => {
     // If user closes the widget while on success screen, reset to home
