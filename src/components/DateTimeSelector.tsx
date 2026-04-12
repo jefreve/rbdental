@@ -58,7 +58,7 @@ export function DateTimeSelector({ onSelect, serviceDuration = "30 min", directi
   const [startIndex, setStartIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const visibleDaysCount = 4;
+  const visibleDaysCount = 3;
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 800);
@@ -156,10 +156,10 @@ export function DateTimeSelector({ onSelect, serviceDuration = "30 min", directi
             <div className="flex flex-1 gap-1.5 sm:gap-2 min-w-0">
               {isLoading ? (
                 // Column based skeletons
-                [1, 2, 3, 4].map((col) => (
+                [1, 2, 3].map((col) => (
                   <div key={col} className="flex-1 min-w-0 py-2.5 flex flex-col gap-3">
                     {[1, 2, 3, 4].map((row) => (
-                      <div key={row} className="w-full max-w-[72px] mx-auto rounded-md bg-muted-foreground/10 animate-pulse h-12 shrink-0" />
+                      <div key={row} className="w-full max-w-[84px] mx-auto rounded-md bg-muted-foreground/10 animate-pulse h-12 shrink-0" />
                     ))}
                   </div>
                 ))
@@ -175,7 +175,7 @@ export function DateTimeSelector({ onSelect, serviceDuration = "30 min", directi
                           disabled={!isAvailable}
                           aria-label={isAvailable ? `${day.label} ${day.date} alle ore ${time}` : undefined}
                           className={cn(
-                            "w-full max-w-[72px] mx-auto py-2 px-0 rounded-md transition-all font-bold sm:font-medium text-[13px] sm:text-[14px] tracking-tighter flex items-center justify-center h-12",
+                            "w-full max-w-[84px] mx-auto py-2 px-0 rounded-md transition-all font-bold sm:font-medium text-[13px] sm:text-[14px] tracking-tighter flex items-center justify-center h-12",
                             isAvailable 
                               ? "bg-transparent text-primary border border-primary/20 shadow-sm hover:bg-primary/5 active:scale-95" 
                               : "bg-transparent text-muted-foreground/20 cursor-not-allowed opacity-40 shadow-none"
