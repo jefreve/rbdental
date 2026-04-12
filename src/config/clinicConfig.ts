@@ -1,6 +1,6 @@
 /**
  * CENTRAL BRANDING ENGINE - Configuration Source of Truth
- * 
+ *
  * Changing these values affects the entire widget (including Shadow DOM isolation)
  * and all the white-label dashboards (Patient, Staff, Admin).
  */
@@ -22,16 +22,16 @@ export interface ClinicConfig {
 export const clinicConfig: ClinicConfig = {
   name: "R.B. Dental", // Il nome mostrato nel widget e nelle dashboard
   mockMode: true, // Se attivo, usa i MockProvider invece di Supabase (Fase 1)
-  
+
   insurances: [
-    "Previmedical", 
-    "Metasalute", 
-    "Unisalute", 
-    "Pronto care", 
-    "Fasdac", 
-    "Fisde", 
-    "Assilt", 
-    "Blue Assistance", 
+    "Previmedical",
+    "Metasalute",
+    "Unisalute",
+    "Pronto care",
+    "Fasdac",
+    "Fisde",
+    "Assilt",
+    "Blue Assistance",
     "Salute-odontonetwork-poste assicura"
   ],
 

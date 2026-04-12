@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, type ReactNode } from 'react';
+import { clinicConfig, type ClinicConfig } from '../config/clinicConfig';
 
 interface WidgetState {
   isExpanded: boolean;
@@ -8,14 +9,37 @@ interface WidgetState {
   setHideDefaultClose: (hide: boolean) => void;
   isSuccessStep: boolean;
   setIsSuccessStep: (isSuccess: boolean) => void;
+  config: ClinicConfig;
 }
 
 const WidgetContext = createContext<WidgetState | undefined>(undefined);
 
-export const WidgetProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export interface ExternalConfig {
+  branding?: {
+    primaryColor?: string;
+    secondaryColor?: string;
+    fontFamily?: string;
+  }
+}
+
+interface WidgetProviderProps {
+  children: ReactNode;
+  externalConfig?: ExternalConfig;
+}
+
+export const WidgetProvider: React.FC<WidgetProviderProps> = ({ children, externalConfig }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [hideDefaultClose, setHideDefaultClose] = useState(false);
   const [isSuccessStep, setIsSuccessStep] = useState(false);
+
+  // Uniamo la configurazione base con quella esterna se presente
+  const currentConfig: ClinicConfig = {
+    ...clinicConfig,
+    branding: {
+      ...clinicConfig.branding,
+      ...(externalConfig?.branding || {})
+    }
+  };
 
   const closeWidget = () => {
     setIsExpanded(false);
@@ -29,7 +53,8 @@ export const WidgetProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       hideDefaultClose,
       setHideDefaultClose,
       isSuccessStep,
-      setIsSuccessStep
+      setIsSuccessStep,
+      config: currentConfig
     }}>
       {children}
     </WidgetContext.Provider>

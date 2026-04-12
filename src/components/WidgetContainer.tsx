@@ -88,9 +88,12 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         width: 100%;
         height: 100%;
         max-width: 100%;
-        overflow: hidden;
+        overflow-y: auto;
+        overflow-x: hidden;
         border-radius: var(--radius);
         position: relative;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.1) transparent;
       }
       
       .close-button {

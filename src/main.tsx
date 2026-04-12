@@ -6,33 +6,71 @@ import App from './App.tsx'
 
 import { WidgetProvider } from './context/WidgetContext'
 
+import { clinicConfig } from './config/clinicConfig'
+
 const mountWidget = () => {
   const containerId = 'rb-booking-widget-root';
   let container = document.getElementById(containerId);
 
   if (container) {
-    console.log('✅ RB Widget: Contenitore trovato, monto il widget...');
+    console.log('✅ RB Widget: Contenitore trovato, leggo configurazioni...');
+    
+    // 1. Estraiamo i parametri dall'HTML del sito ospite (con fallback ai default)
+    const primaryColor = container.getAttribute('data-primary-color') || clinicConfig.branding.primaryColor;
+    const secondaryColor = container.getAttribute('data-secondary-color') || clinicConfig.branding.secondaryColor;
+    const fontFamily = container.getAttribute('data-font-family') || clinicConfig.branding.fontFamily;
+
+    // 2. Applichiamo questi valori come Variabili CSS al contenitore
+    // Questo permetterà a tutto il widget di cambiare colore all'istante
+    container.style.setProperty('--primary-color', primaryColor);
+    container.style.setProperty('--font-family', fontFamily);
+
+    const parent = container.parentElement;
+    if (parent) {
+      parent.style.position = 'relative';
+    }
+    container.style.position = 'absolute';
+    container.style.top = '0';
+    container.style.left = '0';
     container.style.width = '100%';
     container.style.height = '100%';
     container.style.display = 'block';
     container.style.overflow = 'hidden';
+
+    createRoot(container).render(
+      <StrictMode>
+        <WidgetProvider 
+          externalConfig={{ 
+            branding: { 
+              primaryColor, 
+              secondaryColor,
+              fontFamily 
+            } 
+          }}
+        >
+          <WidgetContainer>
+            <App />
+          </WidgetContainer>
+        </WidgetProvider>
+      </StrictMode>
+    );
   } else {
     console.log('⚠️ RB Widget: Contenitore non trovato, monto in fondo al body...');
     container = document.createElement('div');
     container.id = containerId;
     container.style.width = '100%';
     document.body.appendChild(container);
-  }
 
-  createRoot(container).render(
-    <StrictMode>
-      <WidgetProvider>
-        <WidgetContainer>
-          <App />
-        </WidgetContainer>
-      </WidgetProvider>
-    </StrictMode>
-  );
+    createRoot(container).render(
+      <StrictMode>
+        <WidgetProvider>
+          <WidgetContainer>
+            <App />
+          </WidgetContainer>
+        </WidgetProvider>
+      </StrictMode>
+    );
+  }
 };
 
 const initWidget = () => {
