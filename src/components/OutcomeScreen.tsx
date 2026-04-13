@@ -14,6 +14,7 @@ interface OutcomeScreenProps {
   retryStep?: 'datetime' | 'contact' | 'home' | 'treatment';
   direction?: 'forward' | 'backward';
   onReset: (step: 'home' | 'treatment' | 'datetime' | 'contact') => void;
+  dashboardUrl?: string; // <--- AGGIUNTO
 }
 
 export function OutcomeScreen({ 
@@ -23,7 +24,8 @@ export function OutcomeScreen({
   errorMessage = "Non è stato possibile completare la prenotazione a causa di un problema tecnico. Lo slot scelto potrebbe non essere più disponibile.",
   retryStep = 'contact',
   direction = 'forward', 
-  onReset 
+  onReset,
+  dashboardUrl = 'dashboard.html' // <--- AGGIUNTO
 }: OutcomeScreenProps) {
   const isSuccess = type === 'success';
 
@@ -107,7 +109,7 @@ export function OutcomeScreen({
         {isSuccess ? (
           <>
             <p className="text-[length:var(--f-base)] text-balance mb-4 leading-snug">
-              Accedi alla <a href="/dashboard.html" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold">dashboard</a> del tuo <strong>Account Paziente</strong> gratuito per gestire questa e altre prenotazioni.
+              Accedi alla <a href={dashboardUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold">dashboard</a> del tuo <strong>Account Paziente</strong> gratuito per gestire questa e altre prenotazioni.
             </p>
             
             <div className="flex flex-row gap-3 w-full">
@@ -115,7 +117,7 @@ export function OutcomeScreen({
                 asChild
                 className="flex-1 h-12 rounded-full font-bold text-[length:var(--f-button)] shadow-sm text-white px-2"
               >
-                <a href="/dashboard.html" target="_blank" rel="noopener noreferrer">
+                <a href={dashboardUrl} target="_blank" rel="noopener noreferrer">
                   Dashboard
                 </a>
               </Button>
