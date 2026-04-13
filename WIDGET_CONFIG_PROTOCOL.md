@@ -1,4 +1,4 @@
-# Protocollo di Configurazione Booking Widget R.B. Dental (v2.5 Final)
+# Protocollo di Configurazione Booking Widget R.B. Dental (v2.8 Final)
 
 Questo protocollo permette un'integrazione "pixel-perfect" con il sito ospite tramite l'oggetto globale `window.RB_WIDGET_CONFIG`.
 
@@ -22,16 +22,35 @@ window.RB_WIDGET_CONFIG = {
     headerStyle: 'minimal',
     verticalGap: '3rem',
     showButtonIcon: false,
-    dashboardUrl: '/dashboard', // <--- DA PERSONALIZZARE (es: '/dashboard', 'user-area.php', etc)
+    dashboardUrl: '/dashboard', 
     scrollableSteps: {
       home: false,
       contact: true
     }
   },
   texts: {
+    // Step Home
     welcomeTitle: 'PRENOTA UNA VISITA',
     welcomeSubtitle: '',
-    mainButton: 'INIZIA ORA'
+    mainButton: 'INIZIA ORA',
+    
+    // Step Servizi
+    treatmentTitle: 'Scegli un servizio',
+    treatmentSubtitle: '',
+    
+    // Step Data e Ora / Medico
+    datetimeTitle: 'Scegli Data e Ora',
+    doctorTitle: 'Scegli il tuo dottore',
+    
+    // Step Contatti
+    contactTitle: 'I tuoi dati',
+    contactSubtitle: '',
+    contactButton: 'CONFERMA PRENOTAZIONE',
+    
+    // Schermata Successo
+    successTitle: 'PRENOTAZIONE CONFERMATA!',
+    successMessage: 'Riceverai un email a breve.',
+    successDashboardButton: 'VAI ALLA DASHBOARD'
   }
 };
 ```
@@ -102,4 +121,4 @@ Qualora una configurazione (es. `dashboardUrl`) non sembri riflettersi nel widge
 > **Limitazioni**: Se una proprietà o un elemento visivo non è esplicitamente elencato in questo protocollo, significa che non è attualmente modificabile tramite configurazione esterna.
 
 ---
-*Ultimo aggiornamento: 13 Aprile 2026 (v2.8 Full Text Customization)*
+*Ultimo aggiornamento: 13 Aprile 2026 (v2.9 Button Text Color Fix)*

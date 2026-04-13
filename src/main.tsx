@@ -25,6 +25,7 @@ declare global {
           titleWeight?: string;
           titleLetterSpacing?: string;
           buttonLetterSpacing?: string;
+          buttonTextColor?: string;
         };
       };
       layout?: {
@@ -77,10 +78,15 @@ const mountWidget = () => {
                          container.getAttribute('data-border-radius') || 
                          clinicConfig.branding.borderRadius;
 
+    const buttonTextColor = globalConfig.typography?.buttonTextColor || 
+                            clinicConfig.branding.typography?.buttonTextColor || 
+                            '#ffffff';
+
     // 3. Applichiamo Variabili CSS
     container.style.setProperty('--primary-color', primaryColor);
     container.style.setProperty('--font-family', fontFamily);
     container.style.setProperty('--border-radius', borderRadius);
+    container.style.setProperty('--button-text-color', buttonTextColor);
 
     const parent = container.parentElement;
     if (parent) {

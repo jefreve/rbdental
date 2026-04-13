@@ -19,6 +19,7 @@ export interface ClinicConfig {
       titleColor?: string;         // Default: inherit
       buttonLetterSpacing?: string; // Default: normal
       baseWeight?: string;         // Default: 400
+      buttonTextColor?: string;    // Default: #ffffff
     };
   };
   layout: {
@@ -75,7 +76,8 @@ export const clinicConfig: ClinicConfig = {
       titleWeight: "700",
       titleColor: "inherit",
       buttonLetterSpacing: "normal",
-      baseWeight: "400"
+      baseWeight: "400",
+      buttonTextColor: "#ffffff"
     }
   },
   layout: {
