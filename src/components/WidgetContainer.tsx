@@ -64,6 +64,16 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
       shadowRoot.appendChild(styleNode);
     }
     
+    const cssVars = {
+      primary: branding.primaryColor,
+      spacing_title: branding.typography?.titleLetterSpacing || 'normal',
+      spacing_button: branding.typography?.buttonLetterSpacing || 'normal',
+      weight_title: branding.typography?.titleWeight || '700',
+      v_gap: config.layout?.verticalGap || '1rem',
+      header_style: config.layout?.headerStyle || 'solid'
+    };
+    console.log('🎨 CORE CSS INJECTED:', cssVars);
+
     styleNode.textContent = `
       :host {
         --primary: ${branding.primaryColor} !important;
@@ -193,7 +203,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         scrollbar-color: rgba(0, 0, 0, 0.08) transparent;
       }
     `;
-  }, [shadowRoot, config.branding]);
+  }, [shadowRoot, config]);
 
   const handleClose = () => {
     setIsExpanded(false);

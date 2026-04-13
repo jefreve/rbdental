@@ -33,12 +33,12 @@ export interface ExternalConfig {
       titleWeight?: string;
       baseWeight?: string;
     };
+  };
+  layout?: {
     headerStyle?: 'solid' | 'minimal';
     verticalGap?: string;
     buttonWidth?: string;
     showButtonIcon?: boolean;
-  };
-  layout?: {
     scrollableSteps?: {
       home?: boolean;
       treatment?: boolean;
@@ -89,6 +89,10 @@ export const WidgetProvider: React.FC<WidgetProviderProps> = ({ children, extern
       ...(externalConfig?.texts || {})
     }
   };
+
+  if (externalConfig) {
+    console.log('🔄 WIDGET CONFIG MERGED:', currentConfig);
+  }
 
   const closeWidget = () => {
     setIsExpanded(false);

@@ -18,9 +18,24 @@ declare global {
         borderRadius?: string;
         showLogo?: boolean;
         logoUrl?: string;
+        typography?: {
+          baseSize?: string;
+          titleSize?: string;
+          buttonSize?: string;
+          titleWeight?: string;
+          titleLetterSpacing?: string;
+          buttonLetterSpacing?: string;
+        };
+      };
+      layout?: {
+        headerStyle?: 'solid' | 'minimal';
+        verticalGap?: string;
+        buttonWidth?: string;
+        showButtonIcon?: boolean;
       };
       texts?: {
         welcomeTitle?: string;
+        welcomeSubtitle?: string;
         mainButton?: string;
       };
     }
@@ -36,16 +51,11 @@ const mountWidget = () => {
     
     // 1. Priorità: Config Global JS > Attributi HTML > Defaults
     const globalConfig = window.RB_WIDGET_CONFIG?.branding || {};
-    const globalTexts = window.RB_WIDGET_CONFIG?.texts || {};
     
     const primaryColor = globalConfig.primaryColor || 
                          container.getAttribute('data-primary-color') || 
                          clinicConfig.branding.primaryColor;
                          
-    const secondaryColor = globalConfig.secondaryColor || 
-                           container.getAttribute('data-secondary-color') || 
-                           clinicConfig.branding.secondaryColor;
-                           
     const fontFamily = globalConfig.fontFamily || 
                        container.getAttribute('data-font-family') || 
                        clinicConfig.branding.fontFamily;
@@ -53,13 +63,6 @@ const mountWidget = () => {
     const borderRadius = globalConfig.borderRadius || 
                          container.getAttribute('data-border-radius') || 
                          clinicConfig.branding.borderRadius;
-
-    const showLogo = globalConfig.showLogo !== undefined ? globalConfig.showLogo : 
-                    (container.getAttribute('data-show-logo') === 'true');
-                    
-    const logoUrl = globalConfig.logoUrl || 
-                    container.getAttribute('data-logo-url') || 
-                    clinicConfig.branding.logoUrl || '';
 
     // 3. Applichiamo Variabili CSS
     container.style.setProperty('--primary-color', primaryColor);
@@ -80,17 +83,7 @@ const mountWidget = () => {
     createRoot(container).render(
       <StrictMode>
         <WidgetProvider 
-          externalConfig={{ 
-            branding: { 
-              primaryColor, 
-              secondaryColor,
-              fontFamily,
-              borderRadius,
-              showLogo,
-              logoUrl
-            },
-            texts: globalTexts
-          }}
+          externalConfig={window.RB_WIDGET_CONFIG}
         >
           <WidgetContainer>
             <App />
