@@ -41,6 +41,18 @@ export interface ClinicConfig {
     welcomeTitle?: string;
     welcomeSubtitle?: string;
     mainButton?: string;
+    treatmentTitle?: string;
+    treatmentSubtitle?: string;
+    datetimeTitle?: string;
+    datetimeSubtitle?: string;
+    doctorTitle?: string;
+    doctorSubtitle?: string;
+    contactTitle?: string;
+    contactSubtitle?: string;
+    contactButton?: string;
+    successTitle?: string;
+    successMessage?: string;
+    successDashboardButton?: string;
     widgetTitle?: string;
   };
 }
@@ -82,8 +94,20 @@ export const clinicConfig: ClinicConfig = {
     dashboardUrl: "dashboard.html"
   },
   texts: {
-    welcomeTitle: "Prenota il tuo splendido sorriso",
+    welcomeTitle: "Prenota una visita in pochi secondi",
     welcomeSubtitle: "Siamo qui per aiutarti a trovare l'orario perfetto",
-    mainButton: "Prenota"
+    mainButton: "Prenota",
+    treatmentTitle: "Seleziona un Trattamento",
+    treatmentSubtitle: "Scegli il servizio di cui hai bisogno",
+    datetimeTitle: "Scegli Data e Ora",
+    datetimeSubtitle: "Seleziona il momento più comodo per te",
+    doctorTitle: "Scegli il tuo Dottore",
+    doctorSubtitle: "Il nostro team di esperti al tuo servizio",
+    contactTitle: "I tuoi contatti",
+    contactSubtitle: "Completa la prenotazione con i tuoi dati",
+    contactButton: "Conferma Prenotazione",
+    successTitle: "Prenotazione Confermata!",
+    successMessage: "Riceverai un'email di conferma a breve.",
+    successDashboardButton: "Dashboard"
   }
 };

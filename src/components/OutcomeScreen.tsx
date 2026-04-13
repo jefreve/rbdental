@@ -41,7 +41,7 @@ export function OutcomeScreen({
         {isSuccess ? (
           <>
             <CheckCircle className="w-7 h-7 text-green-500 animate-bounce-short-once shrink-0" />
-            Prenotazione Confermata!
+            {isSuccess ? (booking as any).successTitle || "Prenotazione Confermata!" : "Prenotazione Fallita"}
           </>
         ) : (
           <div className="flex flex-col items-center gap-3">
@@ -53,7 +53,7 @@ export function OutcomeScreen({
       
       <p className="text-muted-foreground text-[length:var(--f-base)] mb-6 px-0 sm:px-4">
         {isSuccess 
-          ? "Riceverai un'email di conferma a breve."
+          ? (booking as any).successMessage || "Riceverai un'email di conferma a breve."
           : (typeof errorMessage === 'string' && errorMessage.includes("Torna al calendario") ? (
               <>
                 {errorMessage.split("Torna al calendario")[0]}
@@ -118,7 +118,7 @@ export function OutcomeScreen({
                 className="flex-1 h-12 rounded-full font-bold text-[length:var(--f-button)] shadow-sm text-white px-2"
               >
                 <a href={dashboardUrl} target="_blank" rel="noopener noreferrer">
-                  Dashboard
+                  {(booking as any).successDashboardButton || "Dashboard"}
                 </a>
               </Button>
               <Button 

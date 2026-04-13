@@ -102,4 +102,4 @@ Qualora una configurazione (es. `dashboardUrl`) non sembri riflettersi nel widge
 > **Limitazioni**: Se una proprietà o un elemento visivo non è esplicitamente elencato in questo protocollo, significa che non è attualmente modificabile tramite configurazione esterna.
 
 ---
-*Ultimo aggiornamento: 13 Aprile 2026 (v2.6 Debug Navigation Tracking)*
+*Ultimo aggiornamento: 13 Aprile 2026 (v2.8 Full Text Customization)*

@@ -38,6 +38,18 @@ declare global {
         welcomeTitle?: string;
         welcomeSubtitle?: string;
         mainButton?: string;
+        treatmentTitle?: string;
+        treatmentSubtitle?: string;
+        datetimeTitle?: string;
+        datetimeSubtitle?: string;
+        doctorTitle?: string;
+        doctorSubtitle?: string;
+        contactTitle?: string;
+        contactSubtitle?: string;
+        contactButton?: string;
+        successTitle?: string;
+        successMessage?: string;
+        successDashboardButton?: string;
       };
     }
   }

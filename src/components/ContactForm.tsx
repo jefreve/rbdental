@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CountryCodeSelector } from "./CountryCodeSelector";
 import { InsuranceSelector } from "./InsuranceSelector";
 import { clinicConfig } from "@/config/clinicConfig";
+import { useWidget } from "@/context/WidgetContext";
 import { cn } from "@/lib/utils";
 import { useToast } from "./ui/use-toast";
 import { Check } from "lucide-react";
@@ -34,6 +35,8 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
   const emailRef = useRef<HTMLInputElement>(null);
   const privacyRef = useRef<HTMLInputElement>(null);
   const { toast, dismissAll } = useToast();
+  const { config } = useWidget();
+
 
   useEffect(() => {
     // Cleanup any active toasts when leaving the form
@@ -65,7 +68,14 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
         direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
       )}>
       <div className="mb-6 mt-4 text-center">
-        <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] font-heading">I tuoi dati</h2>
+        <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] font-heading">
+          {config.texts?.contactTitle || "I tuoi dati"}
+        </h2>
+        {config.texts?.contactSubtitle && (
+          <p className="text-[length:var(--f-base)] text-muted-foreground mt-1 opacity-80">
+            {config.texts.contactSubtitle}
+          </p>
+        )}
       </div>
 
       <form 
@@ -299,12 +309,9 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
         {/* Submit Button */}
         <Button 
           type="submit" 
-          className={cn(
-            "w-full h-12 text-[length:var(--f-button)] font-[var(--f-w-title)] tracking-[var(--f-ls-button)] text-white transition-all",
-            showErrors && !isFormValid && "opacity-80 grayscale-[20%]"
-          )}
+          className="w-full h-14 rounded-full font-bold text-[length:var(--f-button)] uppercase tracking-[var(--f-ls-button)] shadow-lg hover:scale-[1.03] transition-all duration-300"
         >
-          Prenota Ora
+          {config.texts?.contactButton || "Prenota"}
         </Button>
       </form>
     </div>

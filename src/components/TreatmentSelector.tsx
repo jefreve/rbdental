@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { useWidget } from "@/context/WidgetContext";
 
 interface TreatmentSelectorProps {
   onSelect: (treatmentId: string) => void;
@@ -19,6 +20,8 @@ const TREATMENTS = [
 
 export function TreatmentSelector({ onSelect, direction = 'forward' }: TreatmentSelectorProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const { config } = useWidget();
+
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 600);
@@ -30,7 +33,16 @@ export function TreatmentSelector({ onSelect, direction = 'forward' }: Treatment
       "w-full max-w-md mx-auto animate-in fade-in duration-700",
       direction === 'forward' ? "slide-in-from-right-4" : "slide-in-from-left-4"
     )}>
-      <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] mb-6 mt-4 text-center px-1 font-heading">Scegli un servizio</h2>
+      <div className="mb-6 mt-4 text-center">
+        <h2 className="text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)] px-1 font-heading">
+          {config.texts?.treatmentTitle || "Scegli un servizio"}
+        </h2>
+        {config.texts?.treatmentSubtitle && (
+          <p className="text-[length:var(--f-base)] text-muted-foreground mt-1 opacity-80">
+            {config.texts.treatmentSubtitle}
+          </p>
+        )}
+      </div>
 
       <div className="space-y-3 text-left">
         {isLoading ? (
