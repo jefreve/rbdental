@@ -39,6 +39,7 @@ export interface ExternalConfig {
     verticalGap?: string;
     buttonWidth?: string;
     showButtonIcon?: boolean;
+    dashboardUrl?: string; // <--- AGGIUNTO
     scrollableSteps?: {
       home?: boolean;
       treatment?: boolean;

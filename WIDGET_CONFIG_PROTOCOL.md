@@ -92,5 +92,14 @@ Inserisci lo script nel `header.php` o in un blocco HTML personalizzato.
 - **Dashboard Link**: Il widget apre il link in una nuova scheda (`target="_blank"`) per non interrompere la navigazione dell'utente sul sito principale.
 - **Cache**: Se non vedi le modifiche, aggiungi un parametro versione allo script: `widget.iife.js?v=1.1`.
 
+## 4. Debugging dell'Integrazione
+Qualora una configurazione (es. `dashboardUrl`) non sembri riflettersi nel widget, apri la console del browser (F12) e cerca i seguenti messaggi:
+- `🔄 WIDGET CONFIG MERGED`: Mostra l'oggetto finale caricato dal widget.
+- `🔗 DASHBOARD LINK (APP)`: Indica l'URL iniettato nel pulsante Dashboard della Home.
+- `🔗 DASHBOARD LINK (OUTCOME)`: Indica l'URL iniettato nella schermata finale di successo.
+
+> [!IMPORTANT]
+> **Limitazioni**: Se una proprietà o un elemento visivo non è esplicitamente elencato in questo protocollo, significa che non è attualmente modificabile tramite configurazione esterna.
+
 ---
-*Ultimo aggiornamento: 13 Aprile 2026 (v2.5 Custom Dashboard URL)*
+*Ultimo aggiornamento: 13 Aprile 2026 (v2.6 Debug Navigation Tracking)*

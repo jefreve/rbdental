@@ -53,6 +53,8 @@ function App() {
     return (saved as any) || 'home';
   });
   const { isExpanded, setIsExpanded, setIsSuccessStep, config } = useWidget();
+  console.log('🔗 DASHBOARD LINK (APP):', config.layout?.dashboardUrl || 'dashboard.html (default)');
+
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const [booking, setBooking] = useState<BookingState>(() => {
     if (!isSessionValid()) return {};

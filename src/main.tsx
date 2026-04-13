@@ -32,6 +32,7 @@ declare global {
         verticalGap?: string;
         buttonWidth?: string;
         showButtonIcon?: boolean;
+        dashboardUrl?: string;
       };
       texts?: {
         welcomeTitle?: string;
@@ -100,7 +101,7 @@ const mountWidget = () => {
 
     createRoot(container).render(
       <StrictMode>
-        <WidgetProvider>
+        <WidgetProvider externalConfig={window.RB_WIDGET_CONFIG}>
           <WidgetContainer>
             <App />
           </WidgetContainer>
