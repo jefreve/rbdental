@@ -161,16 +161,11 @@ function App() {
   };
 
   const handleSlotExpire = useCallback(() => {
-    console.log('⏳ DEBUG: handleSlotExpire triggered!');
-    if (isExpiredRef.current) {
-      console.log('⏳ DEBUG: already expired, skipping...');
-      return; 
-    }
+    if (isExpiredRef.current) return; 
     isExpiredRef.current = true;
     setSlotExpired(true);
     // Wait 1 second before showing the banner and hiding the timer badge
     setTimeout(() => {
-      console.log('⏳ DEBUG: setting showExpiredBanner to TRUE');
       setShowExpiredBanner(true);
     }, 1000);
   }, []);
@@ -249,7 +244,6 @@ function App() {
 
   // The visual view state is "home" (teaser) unless expanded
   const activeView = isExpanded ? step : 'home';
-  console.log('🖥️ DEBUG RENDER:', { activeView, step, showExpiredBanner, slotExpired });
   
   // Set global flag for success step to lock widget in place
   useEffect(() => {
@@ -375,10 +369,7 @@ function App() {
             <p className="text-[length:var(--f-small)] text-amber-700/80 mt-1">Lo slot non è più riservato. Puoi comunque procedere, ma la disponibilità verrà ricontrollata alla fine.</p>
             <button
               type="button"
-              onClick={() => {
-                console.log('⏳ DEBUG: "Ho capito" CLICKED - hiding banner');
-                setShowExpiredBanner(false);
-              }}
+              onClick={() => setShowExpiredBanner(false)}
               className="text-[length:var(--f-small)] font-bold underline mt-2 text-amber-700 hover:text-amber-800 transition-colors"
             >
               Ho capito
