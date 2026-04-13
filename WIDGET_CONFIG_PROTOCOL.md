@@ -1,93 +1,74 @@
-# Protocollo di Configurazione Booking Widget R.B. Dental (v2.2 Final)
+# Protocollo di Configurazione Booking Widget R.B. Dental (v2.3 Final)
 
 Questo protocollo permette un'integrazione "pixel-perfect" con il sito ospite tramite l'oggetto globale `window.RB_WIDGET_CONFIG`.
 
-## 1. Branding & Tipografia Avanzata
-```javascript
-branding: {
-  primaryColor: '#005b88',   // Colore principale (es. blu del tuo form)
-  fontFamily: 'Outfit',      // Font caricato dal tuo sito
-  borderRadius: '8px',       // Arrotondamento (es. 8px per stile squadrato)
-  
-  typography: {
-    baseSize: '14px',        // Testo standard
-    titleSize: '24px',       // Titoli principali (H1)
-    buttonSize: '16px',      // Testo dei pulsanti
-    
-    // Configurazione Pesi e Tracking
-    titleWeight: '800',      // Peso font titoli (es. bold/800)
-    baseWeight: '400',       // Peso font corpo
-    titleLetterSpacing: '0.1em',  // Spaziatura lettere titoli
-    buttonLetterSpacing: '0.15em' // Tracking specifico per i pulsanti (es. INIZIA ORA)
-  }
-}
-```
-
-## 2. Layout & Integrazione Nativa
-```javascript
-layout: {
-  // 'minimal': Sfondo trasparente (header bianco pulito)
-  // 'solid': Barra colorata con Primary Color
-  headerStyle: 'minimal', 
-  
-  // Spaziatura verticale tra gli elementi (Gap)
-  verticalGap: '1.5rem', 
-
-  // Personalizzazione Pulsanti
-  buttonWidth: '100%',     // Larghezza custom (es. '100%' o '280px')
-  showButtonIcon: true,    // Attiva la freccia (Send icon style) nel pulsante
-
-  scrollableSteps: {
-    home: false,    // Consigliato fisso per effetto "app"
-    success: false,
-    contact: true   // Scrollable per form lunghi
-  }
-}
-```
-
-## 3. Contenuti & Testi
-**Nota:** Per rimuovere il sottotitolo (subtitle), passare una stringa vuota `''`.
-
-```javascript
-texts: {
-  welcomeTitle: 'PRENOTA UNA VISITA',
-  welcomeSubtitle: '',   // Lasciare vuoto per nascondere il sottotitolo
-  mainButton: 'INIZIA ORA'
-}
-```
-
-## 4. Template "Integrazione Invisibile" (Copia & Incolla)
-Copia questo blocco per far sparire il widget dentro la tua pagina, facendolo sembrare programmato a mano:
-
+## 1. Struttura Configurazione
 ```javascript
 window.RB_WIDGET_CONFIG = {
   branding: {
-    primaryColor: '#005b88', 
-    fontFamily: "'Inter', sans-serif",
-    borderRadius: '4px',
+    primaryColor: '#005b88',   // Colore principale
+    fontFamily: 'Inter',      // Font caricato dal sito ospite
+    borderRadius: '24px',     // Arrotondamento contenitore (consigliato 24px)
+    
     typography: {
-      titleSize: '24px',
-      titleWeight: '800',
-      titleLetterSpacing: '0.1em',
-      buttonLetterSpacing: '0.15em', // Match dello spacing del tasto INVIA
-      baseWeight: '400'
+      titleSize: '22px',      // Dimensione titoli
+      titleWeight: '800',     // Peso titoli (Bold/Black)
+      titleLetterSpacing: '0.15em', // Spaziatura titoli
+      buttonLetterSpacing: '0.25em', // Spaziatura specifica pulsanti (es. INIZIA ORA)
+      baseWeight: '400'       // Peso testo corpo
     }
   },
   layout: {
-    headerStyle: 'minimal',
-    verticalGap: '1.8rem',
-    buttonWidth: '100%',
-    showButtonIcon: false,
-    scrollableSteps: { home: false, success: false }
+    headerStyle: 'minimal',   // 'minimal' (header bianco pulito) o 'solid' (barra blu)
+    verticalGap: '3rem',      // Spaziatura tra gli elementi
+    showButtonIcon: false,    // Mostra/Nasconde icona freccia nei pulsanti
+    scrollableSteps: {
+      home: false,            // Blocca scroll nella home per effetto "nativ"
+      contact: true           // Attiva scroll per form lunghi
+    }
   },
   texts: {
     welcomeTitle: 'PRENOTA UNA VISITA',
-    welcomeSubtitle: '', // Niente sottotitolo
+    welcomeSubtitle: '',     // Lasciare vuoto per nascondere il sottotitolo
     mainButton: 'INIZIA ORA'
   }
 };
 ```
 
+## 2. Note Tecniche Importanti
+- **Header Minimal**: Quando si usa `headerStyle: 'minimal'`, il widget rimuove la barra colorata superiore. Assicurarsi che il contenitore del widget sul sito ospite abbia uno sfondo bianco o neutro.
+- **Sottotitoli**: Passando una stringa vuata (`''`) a `welcomeSubtitle`, l'intero blocco (incluso lo spazio e l'icona informativa) viene rimosso.
+- **Uppercase**: I pulsanti principali sono forzati automaticamente in maiuscolo per garantire la massima resa del `buttonLetterSpacing`.
+
+## 3. Template Integrazione (Next.js / React)
+```tsx
+<Script id="rb-widget-config" strategy="beforeInteractive">
+  {`
+    window.RB_WIDGET_CONFIG = {
+      branding: {
+        primaryColor: '#005b88', 
+        fontFamily: "'Roboto Slab', sans-serif",
+        borderRadius: '24px', 
+        typography: {
+          titleWeight: '800',
+          titleLetterSpacing: '0.15em',
+          buttonLetterSpacing: '0.25em'
+        }
+      },
+      layout: {
+        headerStyle: 'minimal',
+        verticalGap: '3rem',
+        showButtonIcon: false
+      },
+      texts: {
+        welcomeTitle: 'PRENOTA UNA VISITA',
+        welcomeSubtitle: '',
+        mainButton: 'INIZIA ORA'
+      }
+    };
+  `}
+</Script>
+```
+
 ---
-*Ultimo aggiornamento: 12 Aprile 2026 (v2.2 Button Tracking & Uppercase Update)*
-**Note tecniche:** Il pulsante principale è forzato automaticamente in `uppercase` per massimizzare la resa del `buttonLetterSpacing`.
+*Ultimo aggiornamento: 13 Aprile 2026 (v2.3 Communication Fix)*
