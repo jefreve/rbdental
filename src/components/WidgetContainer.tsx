@@ -145,6 +145,10 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children, port
       }
 
       @media (max-width: 1024px) {
+        :host {
+          --f-title: ${branding.typography?.mobileTitleSize || '22px'} !important;
+        }
+
         .widget-viewport.is-expanded {
           position: fixed !important;
           top: 0 !important;

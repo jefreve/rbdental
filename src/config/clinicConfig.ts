@@ -20,6 +20,7 @@ export interface ClinicConfig {
       buttonLetterSpacing?: string; // Default: normal
       baseWeight?: string;         // Default: 400
       buttonTextColor?: string;    // Default: #ffffff
+      mobileTitleSize?: string;    // Nuova: dimensione titoli su mobile
     };
   };
   layout: {
@@ -79,7 +80,8 @@ export const clinicConfig: ClinicConfig = {
       titleColor: "inherit",
       buttonLetterSpacing: "normal",
       baseWeight: "400",
-      buttonTextColor: "#ffffff"
+      buttonTextColor: "#ffffff",
+      mobileTitleSize: "22px" // Default ottimizzato per mobile
     }
   },
   layout: {

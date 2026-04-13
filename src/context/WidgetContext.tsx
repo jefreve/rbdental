@@ -32,6 +32,8 @@ export interface ExternalConfig {
       buttonLetterSpacing?: string;
       titleWeight?: string;
       baseWeight?: string;
+      buttonTextColor?: string;
+      mobileTitleSize?: string;
     };
   };
   layout?: {
