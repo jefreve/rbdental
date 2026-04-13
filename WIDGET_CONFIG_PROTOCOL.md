@@ -1,4 +1,4 @@
-# Protocollo di Configurazione Booking Widget R.B. Dental (v2.3 Final)
+# Protocollo di Configurazione Booking Widget R.B. Dental (v2.5 Final)
 
 Questo protocollo permette un'integrazione "pixel-perfect" con il sito ospite tramite l'oggetto globale `window.RB_WIDGET_CONFIG`.
 
@@ -6,73 +6,91 @@ Questo protocollo permette un'integrazione "pixel-perfect" con il sito ospite tr
 ```javascript
 window.RB_WIDGET_CONFIG = {
   branding: {
-    primaryColor: '#005b88',   // Colore principale
-    fontFamily: 'Inter',      // Font caricato dal sito ospite
-    borderRadius: '24px',     // Arrotondamento contenitore (consigliato 24px)
-    
+    primaryColor: '#005b88',
+    fontFamily: 'Inter',
+    borderRadius: '24px',
     typography: {
-      titleSize: '22px',      // Dimensione titoli
-      titleWeight: '800',     // Peso titoli (Bold/Black)
-      titleColor: '#005b88',  // <--- AGGIUNTO: Colore titoli (es. Blu Dental)
-      titleLetterSpacing: '0.15em', // Spaziatura titoli
-      buttonLetterSpacing: '0.25em', // Spaziatura specifica pulsanti (es. INIZIA ORA)
-      baseWeight: '400'       // Peso testo corpo
+      titleSize: '22px',
+      titleWeight: '800',
+      titleColor: '#005b88',
+      titleLetterSpacing: '0.15em',
+      buttonLetterSpacing: '0.25em',
+      baseWeight: '400'
     }
   },
   layout: {
-    headerStyle: 'minimal',   // 'minimal' (header bianco pulito) o 'solid' (barra blu)
-    verticalGap: '3rem',      // Spaziatura tra gli elementi
-    showButtonIcon: false,    // Mostra/Nasconde icona freccia nei pulsanti
+    headerStyle: 'minimal',
+    verticalGap: '3rem',
+    showButtonIcon: false,
+    dashboardUrl: '/dashboard', // <--- DA PERSONALIZZARE (es: '/dashboard', 'user-area.php', etc)
     scrollableSteps: {
-      home: false,            // Blocca scroll nella home per effetto "nativ"
-      contact: true           // Attiva scroll per form lunghi
+      home: false,
+      contact: true
     }
   },
   texts: {
     welcomeTitle: 'PRENOTA UNA VISITA',
-    welcomeSubtitle: '',     // Lasciare vuoto per nascondere il sottotitolo
+    welcomeSubtitle: '',
     mainButton: 'INIZIA ORA'
   }
 };
 ```
 
-## 2. Note Tecniche Importanti
-- **Header Minimal**: Quando si usa `headerStyle: 'minimal'`, il widget rimuove la barra colorata superiore. Assicurarsi che il contenitore del widget sul sito ospite abbia uno sfondo bianco o neutro.
-- **Sottotitoli**: Passando una stringa vuata (`''`) a `welcomeSubtitle`, l'intero blocco (incluso lo spazio e l'icona informativa) viene rimosso.
-- **Uppercase**: I pulsanti principali sono forzati automaticamente in maiuscolo per garantire la massima resa del `buttonLetterSpacing`.
+## 2. Guida all'Integrazione per Piattaforma
 
-## 3. Template Integrazione (Next.js / React)
+### 🚀 Next.js (App Router)
+Usa il componente `Script` con la strategia `beforeInteractive` per caricare la configurazione prima del widget.
 ```tsx
-<Script id="rb-widget-config" strategy="beforeInteractive">
-  {`
-    window.RB_WIDGET_CONFIG = {
-      branding: {
-        primaryColor: '#005b88', 
-        fontFamily: "'Roboto Slab', sans-serif",
-        borderRadius: '24px', 
-        typography: {
-          titleWeight: '800',
-          titleLetterSpacing: '0.15em',
-          buttonLetterSpacing: '0.25em'
-        }
-      },
-      layout: {
-        headerStyle: 'minimal',
-        verticalGap: '3rem',
-        showButtonIcon: false
-      },
-      texts: {
-        welcomeTitle: 'PRENOTA UNA VISITA',
-        welcomeSubtitle: '',
-        mainButton: 'INIZIA ORA'
-      }
-    };
-  `}
-</Script>
+import Script from 'next/script';
+
+export default function BookingPage() {
+  return (
+    <>
+      <Script id="widget-config" strategy="beforeInteractive">
+        {`
+          window.RB_WIDGET_CONFIG = {
+            layout: { 
+              dashboardUrl: '/account/appointments' // Percorso relativo interno a Next.js
+            }
+          };
+        `}
+      </Script>
+      <div id="rb-booking-widget-root"></div>
+      <Script src="https://rbdental-widget.vercel.app/widget.iife.js" strategy="afterInteractive" />
+    </>
+  );
+}
 ```
 
----
-*Ultimo aggiornamento: 13 Aprile 2026 (v2.4 TitleColor Support)*
+### 🌐 WordPress / PHP
+Inserisci lo script nel `header.php` o in un blocco HTML personalizzato.
+```html
+<script>
+  window.RB_WIDGET_CONFIG = {
+    layout: { 
+      dashboardUrl: 'https://miosito.it/area-pazienti/' // URL assoluto
+    }
+  };
+</script>
+<div id="rb-booking-widget-root"></div>
+<script src="https://rbdental-widget.vercel.app/widget.iife.js"></script>
+```
 
-> [!IMPORTANT]
-> **Limitazioni**: Se una proprietà o un elemento visivo non è esplicitamente elencato in questo protocollo, significa che non è attualmente modificabile tramite configurazione esterna.
+### 📄 HTML Statico
+```html
+<script>
+  window.RB_WIDGET_CONFIG = {
+    layout: { 
+      dashboardUrl: 'dashboard-v2.html' // Pagina locale
+    }
+  };
+</script>
+```
+
+## 3. Note Tecniche
+- **Limitazioni**: Se una proprietà non è elencata qui, non è attualmente modificabile.
+- **Dashboard Link**: Il widget apre il link in una nuova scheda (`target="_blank"`) per non interrompere la navigazione dell'utente sul sito principale.
+- **Cache**: Se non vedi le modifiche, aggiungi un parametro versione allo script: `widget.iife.js?v=1.1`.
+
+---
+*Ultimo aggiornamento: 13 Aprile 2026 (v2.5 Custom Dashboard URL)*

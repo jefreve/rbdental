@@ -436,7 +436,7 @@ function App() {
                     asChild
                     className="w-full sm:w-80 h-14 text-[length:var(--f-base)] font-bold border-primary/20 hover:bg-primary/5 hover:text-primary transition-all shadow-sm"
                   >
-                    <a href="/dashboard.html" target="_blank" rel="noopener noreferrer">
+                    <a href={config.layout?.dashboardUrl || "dashboard.html"} target="_blank" rel="noopener noreferrer">
                       {hasVisitedBefore ? "Dashboard" : "Dashboard Prenotazioni Digitali"}
                     </a>
                   </Button>

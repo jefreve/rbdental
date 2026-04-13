@@ -34,6 +34,7 @@ export interface ClinicConfig {
     verticalGap?: string;              // Space between elements (e.g. '1.5rem')
     buttonWidth?: string;              // Custom button width (e.g. '100%' or '240px')
     showButtonIcon?: boolean;          // Show arrow icon in primary buttons
+    dashboardUrl?: string;             // <--- AGGIUNTO
   };
   insurances?: string[];
   texts?: {
@@ -77,7 +78,8 @@ export const clinicConfig: ClinicConfig = {
     headerStyle: "solid",
     verticalGap: "1rem",
     buttonWidth: "100%",
-    showButtonIcon: false
+    showButtonIcon: false,
+    dashboardUrl: "dashboard.html"
   },
   texts: {
     welcomeTitle: "Prenota il tuo splendido sorriso",
