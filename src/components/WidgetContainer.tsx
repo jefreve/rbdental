@@ -77,7 +77,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
     styleNode.textContent = `
       :host {
         --primary: ${branding.primaryColor} !important;
-        --primary-foreground: ${getContrastColor(branding.primaryColor)} !important;
+        --primary-foreground: ${branding.typography?.buttonTextColor ? branding.typography.buttonTextColor : (getContrastColor(branding.primaryColor) === '0 0% 0%' ? '0 0% 0%' : '0 0% 100%')} !important;
         --secondary: ${branding.secondaryColor} !important;
         --secondary-foreground: ${getContrastColor(branding.secondaryColor)} !important;
         --accent: ${branding.accentColor} !important;
