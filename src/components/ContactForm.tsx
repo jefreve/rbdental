@@ -282,23 +282,34 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
               />
             </label>
             <div className="text-[length:var(--f-base)] font-[var(--f-w-base)] text-muted-foreground leading-relaxed">
-              <span className={cn(showErrors && !isPrivacyValid && "text-destructive font-medium")}>
+               <span className={cn(showErrors && !isPrivacyValid && "text-destructive font-medium")}>
                 Prenotando l'appuntamento, accetti i nostri{' '}
-                <a 
-                  href={config.layout?.termsUrl || "/terms"} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-primary hover:underline font-semibold" 
-                  aria-label="Leggi i termini e condizioni (si apre in una nuova finestra)"
-                >termini e condizioni</a>
+                {config.layout?.termsUrl === 'none' ? (
+                  <span className="font-semibold italic opacity-80 underline underline-offset-4 decoration-primary/30">termini e condizioni</span>
+                ) : (
+                  <a 
+                    href={config.layout?.termsUrl || "/terms"} 
+                    target={config.layout?.termsUrl === '#' ? undefined : "_blank"} 
+                    onClick={(e) => config.layout?.termsUrl === '#' && e.preventDefault()}
+                    rel="noopener noreferrer" 
+                    className="text-primary hover:underline font-semibold" 
+                    aria-label="Leggi i termini e condizioni (si apre in una nuova finestra)"
+                  >termini e condizioni</a>
+                )}
                 {' '}e confermi di aver letto e compreso la nostra{' '}
-                <a 
-                  href={config.layout?.privacyUrl || "/privacy"} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-primary hover:underline font-semibold" 
-                  aria-label="Leggi l'informativa sulla privacy (si apre in una nuova finestra)"
-                >informativa privacy</a>.
+                {config.layout?.privacyUrl === 'none' ? (
+                  <span className="font-semibold italic opacity-80 underline underline-offset-4 decoration-primary/30">informativa privacy</span>
+                ) : (
+                  <a 
+                    href={config.layout?.privacyUrl || "/privacy"} 
+                    target={config.layout?.privacyUrl === '#' ? undefined : "_blank"} 
+                    onClick={(e) => config.layout?.privacyUrl === '#' && e.preventDefault()}
+                    rel="noopener noreferrer" 
+                    className="text-primary hover:underline font-semibold" 
+                    aria-label="Leggi l'informativa sulla privacy (si apre in una nuova finestra)"
+                  >informativa privacy</a>
+                )}
+                .
               </span>
               <br/><br/>
               <span className="font-medium text-black">Se questa è la tua prima prenotazione, creeremo il tuo account gratuito per salvare e gestire le tue visite.</span>
