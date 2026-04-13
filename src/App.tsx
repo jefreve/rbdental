@@ -404,9 +404,10 @@ function App() {
       <main
         ref={scrollContainerRef}
         className={cn(
-          "flex-1 w-full overflow-x-hidden px-6 sm:px-10 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
+          "flex-1 w-full overflow-x-hidden px-6 sm:px-10 scrollbar-premium relative z-10 transition-all duration-300",
+          isExpanded ? "overscroll-contain" : "overscroll-auto",
           (config?.layout?.scrollableSteps?.[activeView as keyof typeof config.layout.scrollableSteps] ?? true)
-            ? "overflow-y-auto"
+            ? (isExpanded ? "overflow-y-auto" : "overflow-y-hidden")
             : "overflow-y-hidden",
           isKeyboardActive ? "pb-2" : (activeView === 'success' ? "pb-6" : "pb-6"),
           activeView === 'success' && "animate-in fade-in zoom-in-95 duration-500"
