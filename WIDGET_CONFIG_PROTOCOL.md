@@ -13,6 +13,7 @@ window.RB_WIDGET_CONFIG = {
     typography: {
       titleSize: '22px',      // Dimensione titoli
       titleWeight: '800',     // Peso titoli (Bold/Black)
+      titleColor: '#005b88',  // <--- AGGIUNTO: Colore titoli (es. Blu Dental)
       titleLetterSpacing: '0.15em', // Spaziatura titoli
       buttonLetterSpacing: '0.25em', // Spaziatura specifica pulsanti (es. INIZIA ORA)
       baseWeight: '400'       // Peso testo corpo
@@ -71,4 +72,7 @@ window.RB_WIDGET_CONFIG = {
 ```
 
 ---
-*Ultimo aggiornamento: 13 Aprile 2026 (v2.3 Communication Fix)*
+*Ultimo aggiornamento: 13 Aprile 2026 (v2.4 TitleColor Support)*
+
+> [!IMPORTANT]
+> **Limitazioni**: Se una proprietà o un elemento visivo non è esplicitamente elencato in questo protocollo, significa che non è attualmente modificabile tramite configurazione esterna.

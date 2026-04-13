@@ -313,7 +313,7 @@ function App() {
             <h1 className={cn(
               "transitions-all duration-300 flex items-center justify-center gap-1.5",
               "text-[length:var(--f-title)] font-[var(--f-w-title)] tracking-[var(--f-ls-title)]",
-              config.layout?.headerStyle === 'minimal' ? "text-foreground" : "text-white"
+              config.layout?.headerStyle === 'minimal' ? "text-[color:var(--f-c-title)]" : "text-white"
             )}>
               <span className="truncate">{config.texts?.welcomeTitle || "Prenota una visita in pochi"}</span>
               {config.layout?.headerStyle !== 'minimal' && <Clock className="w-5 h-5 shrink-0 mb-0.5" />}
