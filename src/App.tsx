@@ -160,12 +160,13 @@ function App() {
   };
 
   const handleSlotExpire = useCallback(() => {
+    if (slotExpired) return; // <--- FIX: Evita il loop infinito
     setSlotExpired(true);
     // Wait 1 second before showing the banner and hiding the timer badge
     setTimeout(() => {
       setShowExpiredBanner(true);
     }, 1000);
-  }, []);
+  }, [slotExpired]);
 
   // Polling logic: after slot expires, check every POLLING_INTERVAL_S seconds
   useEffect(() => {
@@ -364,8 +365,9 @@ function App() {
             <p className="text-[length:var(--f-base)] font-bold text-amber-700 leading-tight">Sessione Scaduta</p>
             <p className="text-[length:var(--f-small)] text-amber-700/80 mt-1">Lo slot non è più riservato. Puoi comunque procedere, ma la disponibilità verrà ricontrollata alla fine.</p>
             <button
+              type="button"
               onClick={() => setShowExpiredBanner(false)}
-              className="text-[length:var(--f-small)] font-bold underline mt-2 text-amber-700"
+              className="text-[length:var(--f-small)] font-bold underline mt-2 text-amber-700 hover:text-amber-800 transition-colors"
             >
               Ho capito
             </button>

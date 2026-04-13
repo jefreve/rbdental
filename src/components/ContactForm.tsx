@@ -285,7 +285,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
               <span className={cn(showErrors && !isPrivacyValid && "text-destructive font-medium")}>
                 Prenotando l'appuntamento, accetti i nostri{' '}
                 <a 
-                  href="/terms.html" 
+                  href={config.layout?.termsUrl || "/terms"} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-primary hover:underline font-semibold" 
@@ -293,7 +293,7 @@ export function ContactForm({ onSubmit, onChange, initialData, direction = 'forw
                 >termini e condizioni</a>
                 {' '}e confermi di aver letto e compreso la nostra{' '}
                 <a 
-                  href="/privacy.html" 
+                  href={config.layout?.privacyUrl || "/privacy"} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-primary hover:underline font-semibold" 

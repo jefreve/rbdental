@@ -23,6 +23,8 @@ window.RB_WIDGET_CONFIG = {
     verticalGap: '3rem',
     showButtonIcon: false,
     dashboardUrl: '/dashboard', 
+    termsUrl: '/terms', // <--- Link Terms & Conditions
+    privacyUrl: '/privacy', // <--- Link Privacy Policy
     scrollableSteps: {
       home: false,
       contact: true
@@ -121,4 +123,4 @@ Qualora una configurazione (es. `dashboardUrl`) non sembri riflettersi nel widge
 > **Limitazioni**: Se una proprietà o un elemento visivo non è esplicitamente elencato in questo protocollo, significa che non è attualmente modificabile tramite configurazione esterna.
 
 ---
-*Ultimo aggiornamento: 13 Aprile 2026 (v2.9 Button Text Color Fix)*
+*Ultimo aggiornamento: 13 Aprile 2026 (v3.0 Legal Compliance & Dynamic Links)*

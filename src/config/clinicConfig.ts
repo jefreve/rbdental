@@ -35,7 +35,9 @@ export interface ClinicConfig {
     verticalGap?: string;              // Space between elements (e.g. '1.5rem')
     buttonWidth?: string;              // Custom button width (e.g. '100%' or '240px')
     showButtonIcon?: boolean;          // Show arrow icon in primary buttons
-    dashboardUrl?: string;             // <--- AGGIUNTO
+    dashboardUrl?: string;
+    termsUrl?: string; // <--- Nuova proprietà per i termini
+    privacyUrl?: string; // <--- Nuova proprietà per la privacy
   };
   insurances?: string[];
   texts?: {
@@ -93,7 +95,9 @@ export const clinicConfig: ClinicConfig = {
     verticalGap: "1rem",
     buttonWidth: "100%",
     showButtonIcon: false,
-    dashboardUrl: "dashboard.html"
+    dashboardUrl: "dashboard.html",
+    termsUrl: "terms.html",
+    privacyUrl: "privacy.html"
   },
   texts: {
     welcomeTitle: "Prenota una visita in pochi secondi",
@@ -113,3 +117,8 @@ export const clinicConfig: ClinicConfig = {
     successDashboardButton: "Dashboard"
   }
 };
+
+// In ContactForm component:
+// <label className="text-[11px] sm:text-xs text-muted-foreground leading-relaxed cursor-pointer select-none">
+//   Prenotando l'appuntamento, accetti i nostri <a href={config.layout?.termsUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold">termini e condizioni</a> e confermi di aver letto e compreso la nostra <a href={config.layout?.privacyUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-bold">informativa privacy</a>.
+// </label>
