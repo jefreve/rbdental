@@ -82,6 +82,7 @@ function App() {
   const [slotExpired, setSlotExpired] = useState(false);
   const [showExpiredBanner, setShowExpiredBanner] = useState(false);
   const [slotTakenByOther, setSlotTakenByOther] = useState(false);
+  const isExpiredRef = useRef(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Persistence effects
@@ -160,13 +161,14 @@ function App() {
   };
 
   const handleSlotExpire = useCallback(() => {
-    if (slotExpired) return; // <--- FIX: Evita il loop infinito
+    if (isExpiredRef.current) return; 
+    isExpiredRef.current = true;
     setSlotExpired(true);
     // Wait 1 second before showing the banner and hiding the timer badge
     setTimeout(() => {
       setShowExpiredBanner(true);
     }, 1000);
-  }, [slotExpired]);
+  }, []);
 
   // Polling logic: after slot expires, check every POLLING_INTERVAL_S seconds
   useEffect(() => {
@@ -379,7 +381,7 @@ function App() {
       <main
         ref={scrollContainerRef}
         className={cn(
-          "flex-1 w-full overflow-x-hidden px-6 sm:px-10 h-0 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
+          "flex-1 w-full overflow-x-hidden px-6 sm:px-10 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
           (config?.layout?.scrollableSteps?.[activeView as keyof typeof config.layout.scrollableSteps] ?? true)
             ? "overflow-y-auto"
             : "overflow-y-hidden",
