@@ -161,11 +161,16 @@ function App() {
   };
 
   const handleSlotExpire = useCallback(() => {
-    if (isExpiredRef.current) return; 
+    console.log('⏳ DEBUG: handleSlotExpire triggered!');
+    if (isExpiredRef.current) {
+      console.log('⏳ DEBUG: already expired, skipping...');
+      return; 
+    }
     isExpiredRef.current = true;
     setSlotExpired(true);
     // Wait 1 second before showing the banner and hiding the timer badge
     setTimeout(() => {
+      console.log('⏳ DEBUG: setting showExpiredBanner to TRUE');
       setShowExpiredBanner(true);
     }, 1000);
   }, []);
@@ -244,7 +249,9 @@ function App() {
 
   // The visual view state is "home" (teaser) unless expanded
   const activeView = isExpanded ? step : 'home';
-
+  console.log('🖥️ DEBUG RENDER:', { activeView, step, showExpiredBanner, slotExpired });
+  
+  // Set global flag for success step to lock widget in place
   useEffect(() => {
     setIsSuccessStep(activeView === 'success');
   }, [activeView, setIsSuccessStep]);
@@ -368,7 +375,10 @@ function App() {
             <p className="text-[length:var(--f-small)] text-amber-700/80 mt-1">Lo slot non è più riservato. Puoi comunque procedere, ma la disponibilità verrà ricontrollata alla fine.</p>
             <button
               type="button"
-              onClick={() => setShowExpiredBanner(false)}
+              onClick={() => {
+                console.log('⏳ DEBUG: "Ho capito" CLICKED - hiding banner');
+                setShowExpiredBanner(false);
+              }}
               className="text-[length:var(--f-small)] font-bold underline mt-2 text-amber-700 hover:text-amber-800 transition-colors"
             >
               Ho capito
@@ -601,12 +611,14 @@ function App() {
       )}
 
       {/* Slot Timer — Root level so absolute inset-0 covers full widget */}
-      {(activeView === 'doctor' || activeView === 'contact') && !showExpiredBanner && (
-        <SlotTimer
-          expiresAt={slotExpiresAt}
-          onExpire={handleSlotExpire}
-          isKeyboardActive={isKeyboardActive}
-        />
+      {(activeView === 'doctor' || activeView === 'contact') && (
+        <div className={cn("transition-opacity duration-300", showExpiredBanner ? "opacity-0 pointer-events-none" : "opacity-100")}>
+          <SlotTimer
+            expiresAt={slotExpiresAt}
+            onExpire={handleSlotExpire}
+            isKeyboardActive={isKeyboardActive}
+          />
+        </div>
       )}
     </div>
   )
