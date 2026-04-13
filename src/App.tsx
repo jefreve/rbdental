@@ -53,7 +53,29 @@ function App() {
     return (saved as any) || 'home';
   });
   const { isExpanded, setIsExpanded, setIsSuccessStep, config } = useWidget();
-  console.log('🔗 DASHBOARD LINK (APP):', config.layout?.dashboardUrl || 'dashboard.html (default)');
+  
+  // -- DEBUG MOBILE Z-INDEX --
+  useEffect(() => {
+    if (isExpanded) {
+      setTimeout(() => {
+        const widgetEl = document.querySelector('.is-expanded');
+        if (widgetEl) {
+          const rect = widgetEl.getBoundingClientRect();
+          const elAtPoint = document.elementFromPoint(rect.left + rect.width / 2, rect.top + 10);
+          console.log('🔍 DEBUG Z-INDEX: Elemento trovato sopra il widget:', elAtPoint);
+          
+          // Cerchiamo di forzare il root del widget
+          const root = document.getElementById('rb-booking-widget-root');
+          if (root) {
+            root.style.zIndex = '2147483647';
+            root.style.position = 'relative'; 
+            console.log('🚀 DEBUG Z-INDEX: Z-index del ROOT forzato a MAX');
+          }
+        }
+      }, 1000);
+    }
+  }, [isExpanded]);
+  // ---------------------------
 
   const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
   const [booking, setBooking] = useState<BookingState>(() => {

@@ -99,12 +99,21 @@ const mountWidget = () => {
     container.style.height = '100%';
     container.style.display = 'block';
 
+    // 4. Creiamo il Portal Target Globale se non esiste (per lo stato espanso)
+    const portalId = 'rb-portal-root';
+    let portalRoot = document.getElementById(portalId);
+    if (!portalRoot) {
+      portalRoot = document.createElement('div');
+      portalRoot.id = portalId;
+      document.body.appendChild(portalRoot);
+    }
+
     createRoot(container).render(
       <StrictMode>
         <WidgetProvider 
           externalConfig={window.RB_WIDGET_CONFIG}
         >
-          <WidgetContainer>
+          <WidgetContainer portalTarget={portalRoot}>
             <App />
           </WidgetContainer>
         </WidgetProvider>
@@ -117,10 +126,19 @@ const mountWidget = () => {
     container.style.width = '100%';
     document.body.appendChild(container);
 
+    // Fallback: Portal Target Globale
+    const portalId = 'rb-portal-root';
+    let portalRoot = document.getElementById(portalId);
+    if (!portalRoot) {
+      portalRoot = document.createElement('div');
+      portalRoot.id = portalId;
+      document.body.appendChild(portalRoot);
+    }
+
     createRoot(container).render(
       <StrictMode>
         <WidgetProvider externalConfig={window.RB_WIDGET_CONFIG}>
-          <WidgetContainer>
+          <WidgetContainer portalTarget={portalRoot}>
             <App />
           </WidgetContainer>
         </WidgetProvider>

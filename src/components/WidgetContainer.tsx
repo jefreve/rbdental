@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 
 interface WidgetContainerProps {
   children: React.ReactNode;
+  portalTarget?: HTMLElement;
 }
 
 /**
@@ -20,9 +21,10 @@ import { useWidget } from '../context/WidgetContext';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) => {
+export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children, portalTarget }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [shadowRoot, setShadowRoot] = useState<ShadowRoot | null>(null);
+  const [portalShadowRoot, setPortalShadowRoot] = useState<ShadowRoot | null>(null);
   const { isExpanded, setIsExpanded, hideDefaultClose, isSuccessStep, config } = useWidget();
 
   // 1. ATTACH SHADOW DOM (Once)
@@ -31,20 +33,28 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
       const root = containerRef.current.attachShadow({ mode: 'open' });
       setShadowRoot(root);
       
-      // Sincronizziamo TUTTI i tag <style> (dove il widget inietta i suoi CSS)
-      // Ma ignoriamo i <link> (dove il sito ospite tiene i suoi stili e font)
       document.querySelectorAll('style').forEach(s => {
         root.appendChild(s.cloneNode(true));
       });
     }
-  }, []);
+
+    if (portalTarget && !portalTarget.shadowRoot) {
+      const pRoot = portalTarget.attachShadow({ mode: 'open' });
+      setPortalShadowRoot(pRoot);
+      
+      document.querySelectorAll('style').forEach(s => {
+        pRoot.appendChild(s.cloneNode(true));
+      });
+    } else if (portalTarget && portalTarget.shadowRoot) {
+      setPortalShadowRoot(portalTarget.shadowRoot);
+    }
+  }, [portalTarget]);
 
   // 2. DYNAMIC BRANDING UPDATES (Runs on Config change)
   useLayoutEffect(() => {
     if (!shadowRoot) return;
 
     const { branding } = config;
-    console.log('🏗️ WidgetContainer applying branding:', branding);
     
     // Manage Font Injection
     const fontName = branding.fontFamily.split(',')[0].replace(/'/g, '');
@@ -56,25 +66,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
       document.head.appendChild(link);
     }
 
-    // Manage Style Overrides
-    let styleNode = shadowRoot.getElementById('branding-overrides');
-    if (!styleNode) {
-      styleNode = document.createElement('style');
-      styleNode.id = 'branding-overrides';
-      shadowRoot.appendChild(styleNode);
-    }
-    
-    const cssVars = {
-      primary: branding.primaryColor,
-      spacing_title: branding.typography?.titleLetterSpacing || 'normal',
-      spacing_button: branding.typography?.buttonLetterSpacing || 'normal',
-      weight_title: branding.typography?.titleWeight || '700',
-      v_gap: config.layout?.verticalGap || '1rem',
-      header_style: config.layout?.headerStyle || 'solid'
-    };
-    console.log('🎨 CORE CSS INJECTED:', cssVars);
-
-    styleNode.textContent = `
+    const styles = `
       :host {
         --primary: ${branding.primaryColor} !important;
         --primary-foreground: ${branding.typography?.buttonTextColor ? branding.typography.buttonTextColor : (getContrastColor(branding.primaryColor) === '0 0% 0%' ? '0 0% 0%' : '0 0% 100%')} !important;
@@ -163,7 +155,8 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
           max-height: 100dvh !important;
           margin: 0 !important;
           border-radius: 0 !important;
-          z-index: 9999 !important;
+          z-index: 2147483647 !important;
+          padding-top: env(safe-area-inset-top, 0px) !important;
         }
         
         .widget-viewport.is-expanded .close-button {
@@ -189,7 +182,6 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         background: rgba(0, 0, 0, 0.2);
       }
       
-      /* Horizontal Chips Scroll (Hidden) */
       .no-scrollbar::-webkit-scrollbar {
         display: none;
       }
@@ -198,22 +190,33 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
         scrollbar-width: none;
       }
 
-      /* Firefox support for minimalist scrollbars */
       * {
         scrollbar-width: thin;
         scrollbar-color: rgba(0, 0, 0, 0.08) transparent;
       }
     `;
-  }, [shadowRoot, config]);
+
+    [shadowRoot, portalShadowRoot].forEach(root => {
+      if (!root) return;
+      let node = root.getElementById('branding-overrides');
+      if (!node) {
+        node = document.createElement('style');
+        node.id = 'branding-overrides';
+        root.appendChild(node);
+      }
+      node.textContent = styles;
+    });
+  }, [shadowRoot, portalShadowRoot, config]);
 
   const handleClose = () => {
     setIsExpanded(false);
-    // Logic to reset App state will be handled by listening to isExpanded in App.tsx
   };
+
+  const targetRoot = isExpanded && portalShadowRoot ? portalShadowRoot : shadowRoot;
 
   return (
     <div id="booking-widget-container" ref={containerRef} className="relative h-full w-full">
-      {shadowRoot && createPortal(
+      {targetRoot && createPortal(
         <div className={cn(
           "widget-viewport shadow-2xl border border-black/5 rounded-[var(--radius)] text-foreground antialiased relative z-0",
           isExpanded && "is-expanded",
@@ -230,9 +233,8 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({ children }) =>
           )}
           {children}
         </div>,
-        shadowRoot
+        targetRoot
       )}
     </div>
   );
 };
-
