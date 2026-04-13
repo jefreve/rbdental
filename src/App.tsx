@@ -578,6 +578,7 @@ function App() {
               booking={booking}
               direction={direction}
               onReset={handleReset}
+              dashboardUrl={config.layout?.dashboardUrl}
             />
           )}
         </div>
