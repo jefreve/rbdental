@@ -251,7 +251,7 @@ function App() {
       if (scrollContainerRef.current) {
         scrollContainerRef.current.scrollTop = 0;
       }
-      
+
       // 2. Target shadow viewport (the real scrollable parent)
       const viewport = scrollContainerRef.current?.closest('.widget-viewport');
       if (viewport) {
@@ -261,7 +261,7 @@ function App() {
 
     // Execute immediately
     resetScroll();
-    
+
     // Safety timeout for dynamic content rendering
     const timer = setTimeout(resetScroll, 50);
     return () => clearTimeout(timer);
@@ -284,8 +284,8 @@ function App() {
       {activeView !== 'success' && (
         <header className={cn(
           "w-full shrink-0 flex flex-col items-center justify-center px-4 relative z-50 transition-all duration-300",
-          config.layout?.headerStyle === 'minimal' 
-            ? "bg-transparent h-auto pt-8 pb-4" 
+          config.layout?.headerStyle === 'minimal'
+            ? "bg-transparent h-auto pt-8 pb-4"
             : (isKeyboardActive ? "bg-primary h-12 shadow-lg" : "bg-primary h-16 shadow-lg shadow-primary/10")
         )}>
           {activeView !== 'home' && (
@@ -361,7 +361,7 @@ function App() {
           <div className="text-left">
             <p className="text-[length:var(--f-base)] font-bold text-amber-700 leading-tight">Sessione Scaduta</p>
             <p className="text-[length:var(--f-small)] text-amber-700/80 mt-1">Lo slot non è più riservato. Puoi comunque procedere, ma la disponibilità verrà ricontrollata alla fine.</p>
-            <button 
+            <button
               onClick={() => setShowExpiredBanner(false)}
               className="text-[length:var(--f-small)] font-bold underline mt-2 text-amber-700"
             >
@@ -376,8 +376,8 @@ function App() {
         ref={scrollContainerRef}
         className={cn(
           "flex-1 w-full overflow-x-hidden px-6 sm:px-10 h-0 scrollbar-premium relative z-10 overscroll-contain transition-all duration-300",
-          (config?.layout?.scrollableSteps?.[activeView as keyof typeof config.layout.scrollableSteps] ?? true) 
-            ? "overflow-y-auto" 
+          (config?.layout?.scrollableSteps?.[activeView as keyof typeof config.layout.scrollableSteps] ?? true)
+            ? "overflow-y-auto"
             : "overflow-y-hidden",
           isKeyboardActive ? "pb-2" : (activeView === 'success' ? "pb-6" : "pb-6"),
           activeView === 'success' && "animate-in fade-in zoom-in-95 duration-500"
@@ -414,12 +414,12 @@ function App() {
                   }}
                   style={{ width: config.layout?.buttonWidth || 'auto' }}
                   className={cn(
-                    "h-14 text-[length:var(--f-button)] font-[var(--f-w-title)] tracking-[var(--f-ls-button)] text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2",
+                    "h-14 text-[length:var(--f-button)] font-[var(--f-w-title)] tracking-[var(--f-ls-button)] uppercase text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2",
                     (!config.layout?.buttonWidth || config.layout.buttonWidth === 'auto') ? "w-full sm:w-80" : ""
                   )}
                 >
-                  {(step === 'home' || step === 'success') 
-                    ? (config.texts?.mainButton || 'Prenota') 
+                  {(step === 'home' || step === 'success')
+                    ? (config.texts?.mainButton || 'Prenota')
                     : 'Continua Prenotazione'}
                   {config.layout?.showButtonIcon && <ArrowRight className="w-5 h-5 ml-1" />}
                 </Button>

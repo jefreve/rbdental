@@ -89,4 +89,5 @@ window.RB_WIDGET_CONFIG = {
 ```
 
 ---
-*Ultimo aggiornamento: 12 Aprile 2026 (v2.2 Button Tracking Update)*
+*Ultimo aggiornamento: 12 Aprile 2026 (v2.2 Button Tracking & Uppercase Update)*
+**Note tecniche:** Il pulsante principale è forzato automaticamente in `uppercase` per massimizzare la resa del `buttonLetterSpacing`.
